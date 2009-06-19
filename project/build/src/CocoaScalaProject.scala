@@ -1,3 +1,4 @@
+import java.lang.{ProcessBuilder => JProcessBuilder}
 import sbt._
 import Process._
 
@@ -16,6 +17,11 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
         cmd!
     }
     
+    def exec(inDir: Path, cmds: String*) = {
+        Console.println(cmds.mkString(" "))
+        new JProcessBuilder(cmds:_*).directory(inDir.asFile)!
+    }
+    
     override def cleanAction = super.cleanAction dependsOn cleanFramework
         
     lazy val javah = task {
@@ -26,12 +32,12 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
     } dependsOn(compile)
     
     lazy val framework = task {
-        exec("./project/scripts/framework-build.sh")
+        exec(frameworkPath, "xcodebuild", "-alltargets")
         None
     } dependsOn(`package`)
 
     lazy val cleanFramework = task {
-        exec("./project/scripts/framework-clean.sh")
+        exec(frameworkPath, "xcodebuild", "-clean")
         None
     } 
 }

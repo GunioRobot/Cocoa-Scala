@@ -1,2 +1,0 @@
-cd framework
-xcodebuild clean
