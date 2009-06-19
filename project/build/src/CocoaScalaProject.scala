@@ -4,51 +4,34 @@ import Process._
 class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
     val scalatest = "org.scala-tools.testing" % "scalatest" % "0.9.5"
 
-    val cSourcePath = mainSourcePath / "c"
-    val targetDotOPath = path("target") / "doto"
+    val frameworkPath = path("framework")
+    val headersPath = frameworkPath / "jni-src"
     
     val nativeClasses = List(
         "cocoa.ObjcBridge$",
         "cocoa.ObjcRef")
         
-    val cFiles = List(
-        "cocoascala")
-        
-    val linkedFrameworks = List(
-        "/System/Library/Frameworks/JavaVM.framework",
-        "/System/Library/Frameworks/Cocoa.framework")
-        
     def exec(cmd: String) = {
         Console.println(cmd)
         cmd!
     }
+    
+    override def cleanAction = super.cleanAction dependsOn cleanFramework
         
     lazy val javah = task {
         exec {
-            "javah -classpath target/classes -d " + cSourcePath + " " + nativeClasses.mkString(" ")
+            "javah -classpath target/classes -d " + headersPath + " " + nativeClasses.mkString(" ")
         }
         None
     } dependsOn(compile)
     
-    lazy val jnilib = task {
-        targetDotOPath.asFile.mkdirs
-        if (compileCFiles()) {
-            exec {
-                "cc -dynamiclib -fobjc-gc -m64 -o target/libCocoaScala.jnilib " + 
-                    cFiles.map(targetDotOPath + "/" + _ + ".o").mkString(" ") + 
-                    " -framework JavaVM -framework Cocoa"
-            }
-        }
+    lazy val framework = task {
+        exec("./project/scripts/framework-build.sh")
         None
-    }
-    
-    private def compileCFiles(): Boolean = {
-        cFiles.forall { c =>
-            0 == exec {
-                "cc -c -ObjC -fobjc-gc -m64 " + linkedFrameworks.map("-I" + _ + "/Headers").mkString(" ") + 
-                    " -o " + targetDotOPath + "/" + c + ".o " + 
-                    cSourcePath + "/" + c + ".c"
-            }
-        }
-    }
+    } dependsOn(`package`)
+
+    lazy val cleanFramework = task {
+        exec("./project/scripts/framework-clean.sh")
+        None
+    } 
 }
