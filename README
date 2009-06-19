@@ -1,0 +1,32 @@
+Cocoa+Scala
+
+The goal of this project is to make it possible to develop Cocoa applications
+in the Scala language, in a way that feels natural and seamless.
+
+This project is still in the prototyping stage, so there is nothing yet
+available to use.  In fact, everything here is subject to change, radically,
+if the current design direction is deemed insufficient.
+
+I am currently working towards the following first major milestone:
+
+* Be able to build a very simple Cocoa+Scala application, where the 
+application source is written entirely in Scala, and which can get
+a handle on Objective-C classes and send messages to Objective-C
+objects.  
+
+* This milestone does not include the ability to extend Cocoa classes in
+Scala (that will be milestone 2).  
+
+* In this milestone, all interaction with Objective-C classes will be weakly
+typed.  In a future milestone, the ability to write strongly typed expressions
+will be supported.
+
+The Scala code in milestone 1 might look something like the following:
+    // get the NSBundle class
+    val NSBundle = ObjcClass("NSBundle")
+    // send the mainBundle selector
+    val mainBundle = NSBundle!('mainBundle)
+    // get jar files
+    val imageResources = mainBundle!('pathsForResourcesOfType->"jar", 'inDirectory->"Java")
+    ...
+    
