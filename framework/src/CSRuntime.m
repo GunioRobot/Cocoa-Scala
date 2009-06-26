@@ -15,7 +15,8 @@ int CSApplicationMain(const char* mainClass, int argc, const char* argv[]) {
 		[args addObject:[NSString stringWithUTF8String:argv[i]]];
 	}
 	[[CSRuntime sharedRuntime] invokeMainClass:mainClassName withArgs:args];
-	return 0;
+	// not sure if I should be calling NSApplicationMain or doing something else
+	return NSApplicationMain(argc, argv);
 }
 
 @interface CSRuntime (Private)

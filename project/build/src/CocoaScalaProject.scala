@@ -1,43 +1,55 @@
-import java.lang.{ProcessBuilder => JProcessBuilder}
 import sbt._
 import Process._
+import FileUtilities._
 
 class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
     val scalatest = "org.scala-tools.testing" % "scalatest" % "0.9.5"
 
     val frameworkPath = path("framework")
     val headersPath = frameworkPath / "jni-src"
+
+	val targetPath = path("target")
+    val targetFrameworkPath = targetPath / "CocoaScala.framework"
+	val targetJNILibPath = targetPath / "libCocoaScala.jnilib"
     
     val nativeClasses = List(
-        "cocoa.ObjcBridge$",
-        "cocoa.ObjcRef")
+        "cocoa.OCBridge$",
+        "cocoa.$ID",
+		"cocoa.OCClass")
         
-    def exec(cmd: String) = {
-        Console.println(cmd)
-        cmd!
-    }
-    
-    def exec(inDir: Path, cmds: String*) = {
-        Console.println(cmds.mkString(" "))
-        new JProcessBuilder(cmds:_*).directory(inDir.asFile)!
-    }
-    
     override def cleanAction = super.cleanAction dependsOn cleanFramework
         
     lazy val javah = task {
-        exec {
-            "javah -classpath target/classes -d " + headersPath + " " + nativeClasses.mkString(" ")
-        }
+        ("javah -classpath target/classes -d " + headersPath + " " + nativeClasses.mkString(" ")) ! log
         None
     } dependsOn(compile)
     
     lazy val framework = task {
-        exec(frameworkPath, "xcodebuild", "-alltargets")
+        FileUtilities.clean(List(targetFrameworkPath), log)
+        ("xcodebuild -target CocoaScala" cwd frameworkPath) ! log
+        copyDirectory(frameworkPath / "build" / "Release" / "CocoaScala.framework", 
+            targetFrameworkPath, 
+            log)
         None
     } dependsOn(`package`)
 
-    lazy val cleanFramework = task {
-        exec(frameworkPath, "xcodebuild", "-clean")
+    lazy val jnilib = task {
+        FileUtilities.clean(List(targetJNILibPath), log)
+        ("xcodebuild -target JNILib" cwd frameworkPath) ! log
+        copyFile(frameworkPath / "build" / "Release" / "libCocoaScala.jniLib", 
+            targetJNILibPath, 
+            log)
         None
-    } 
+    }
+
+    lazy val cleanFramework = task {
+        ("xcodebuild clean" cwd frameworkPath) ! log
+        None
+    }
+
+	lazy val testApp = task {
+        "xcodebuild -target UnitTests".cwd(frameworkPath) ! log
+		("open -W " + frameworkPath / "build" / "Release" / "UnitTests.app") ! log
+		None
+	} dependsOn(packageTest)
 }

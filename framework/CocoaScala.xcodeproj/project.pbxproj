@@ -13,10 +13,25 @@
 		3F39CEA30FE99AED00F097E7 /* JavaVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39CEA20FE99AED00F097E7 /* JavaVM.framework */; };
 		3F39CEC40FE99EF700F097E7 /* cocoascala-0.1.jar in Copy jars */ = {isa = PBXBuildFile; fileRef = 3F39CEC10FE99EE400F097E7 /* cocoascala-0.1.jar */; };
 		3F39CECA0FE99F4000F097E7 /* scala-library.jar in Copy jars */ = {isa = PBXBuildFile; fileRef = 3F39CEC80FE99F3E00F097E7 /* scala-library.jar */; };
-		3F68AAC30FEBE60D00D9AF2B /* cocoascala.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AAB70FEBE52600D9AF2B /* cocoascala.m */; };
 		3F68AAF20FEBE64500D9AF2B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		3F68AAF30FEBE64500D9AF2B /* JavaVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39CEA20FE99AED00F097E7 /* JavaVM.framework */; };
 		3F68AAF80FEBE72C00D9AF2B /* libCocoaScala.jnilib in Copy jars */ = {isa = PBXBuildFile; fileRef = 3F68AABF0FEBE58B00D9AF2B /* libCocoaScala.jnilib */; };
+		3F68AB340FEC291800D9AF2B /* ScalaBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F68AB320FEC291800D9AF2B /* ScalaBridge.h */; };
+		3F68AB350FEC291800D9AF2B /* ScalaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AB330FEC291800D9AF2B /* ScalaBridge.m */; };
+		3F68AB640FEE603600D9AF2B /* CocoaScala.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CocoaScala.framework */; };
+		3F68AB7C0FEE96D400D9AF2B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AB7B0FEE96D400D9AF2B /* main.m */; };
+		3F68AB850FEE98EA00D9AF2B /* cocoascala-0.1-test.jar in Copy Java Resources */ = {isa = PBXBuildFile; fileRef = 3F68AB810FEE98E400D9AF2B /* cocoascala-0.1-test.jar */; };
+		3F68AB930FEE998500D9AF2B /* CocoaScala.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CocoaScala.framework */; };
+		3F68ABB80FEEEE0200D9AF2B /* CocoaScala.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CocoaScala.framework */; };
+		3F68ABBB0FEEEE2B00D9AF2B /* scalatest-0.9.5.jar in Copy Java Resources */ = {isa = PBXBuildFile; fileRef = 3F68AB710FEE959300D9AF2B /* scalatest-0.9.5.jar */; };
+		3F68ABBD0FEEEE3900D9AF2B /* CocoaScalaTest.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */; };
+		3F68ABC00FEEEE5B00D9AF2B /* CocoaScalaTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */; };
+		3F68ABC90FEEF0F900D9AF2B /* CSTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F68ABC70FEEF0F900D9AF2B /* CSTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F68ABCA0FEEF0F900D9AF2B /* CSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68ABC80FEEF0F900D9AF2B /* CSTest.m */; };
+		3F68ACA60FF2B9D500D9AF2B /* cocoa_OCBridge__.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68ACA50FF2B9D500D9AF2B /* cocoa_OCBridge__.m */; };
+		3F68ACA70FF2B9F700D9AF2B /* cocoa_OCClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */; };
+		3FC1AB660FF3FCAF00DB42B4 /* ScalaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AB330FEC291800D9AF2B /* ScalaBridge.m */; };
+		3FC1AC6E0FF5097900DB42B4 /* cocoa___ID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -26,7 +41,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3F68AABE0FEBE58B00D9AF2B /* JNILib */;
+			remoteGlobalIDString = 3F68AABE0FEBE58B00D9AF2B;
 			remoteInfo = JNILib;
 		};
 /* End PBXContainerItemProxy section */
@@ -55,6 +70,40 @@
 			name = "Copy jars";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F68AB790FEE95E100D9AF2B /* Copy Java Resources */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Java;
+			dstSubfolderSpec = 7;
+			files = (
+				3F68AB850FEE98EA00D9AF2B /* cocoascala-0.1-test.jar in Copy Java Resources */,
+			);
+			name = "Copy Java Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68AB970FEE998B00D9AF2B /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3F68ABBD0FEEEE3900D9AF2B /* CocoaScalaTest.framework in Copy Frameworks */,
+				3F68AB640FEE603600D9AF2B /* CocoaScala.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68ABBE0FEEEE5700D9AF2B /* Copy Java Resources */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Java;
+			dstSubfolderSpec = 7;
+			files = (
+				3F68ABBB0FEEEE2B00D9AF2B /* scalatest-0.9.5.jar in Copy Java Resources */,
+			);
+			name = "Copy Java Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -69,10 +118,24 @@
 		3F39CEA20FE99AED00F097E7 /* JavaVM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaVM.framework; path = /System/Library/Frameworks/JavaVM.framework; sourceTree = "<absolute>"; };
 		3F39CEC10FE99EE400F097E7 /* cocoascala-0.1.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "cocoascala-0.1.jar"; path = "../target/cocoascala-0.1.jar"; sourceTree = SOURCE_ROOT; };
 		3F39CEC80FE99F3E00F097E7 /* scala-library.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "scala-library.jar"; path = "../project/boot/scala-2.7.4/lib/scala-library.jar"; sourceTree = SOURCE_ROOT; };
-		3F68AAB50FEBE52600D9AF2B /* cocoa_ObjcBridge__.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_ObjcBridge__.h; path = "jni-src/cocoa_ObjcBridge__.h"; sourceTree = "<group>"; };
-		3F68AAB60FEBE52600D9AF2B /* cocoa_ObjcRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_ObjcRef.h; path = "jni-src/cocoa_ObjcRef.h"; sourceTree = "<group>"; };
-		3F68AAB70FEBE52600D9AF2B /* cocoascala.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoascala.m; path = "jni-src/cocoascala.m"; sourceTree = "<group>"; };
 		3F68AABF0FEBE58B00D9AF2B /* libCocoaScala.jnilib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libCocoaScala.jnilib; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F68AB320FEC291800D9AF2B /* ScalaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScalaBridge.h; path = src/ScalaBridge.h; sourceTree = "<group>"; };
+		3F68AB330FEC291800D9AF2B /* ScalaBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScalaBridge.m; path = src/ScalaBridge.m; sourceTree = "<group>"; };
+		3F68AB5E0FEE600000D9AF2B /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F68AB600FEE600100D9AF2B /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		3F68AB710FEE959300D9AF2B /* scalatest-0.9.5.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "scalatest-0.9.5.jar"; path = "../lib_managed/default/scalatest-0.9.5.jar"; sourceTree = SOURCE_ROOT; };
+		3F68AB7B0FEE96D400D9AF2B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "test-src/main.m"; sourceTree = "<group>"; };
+		3F68AB810FEE98E400D9AF2B /* cocoascala-0.1-test.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "cocoascala-0.1-test.jar"; path = "../target/cocoascala-0.1-test.jar"; sourceTree = SOURCE_ROOT; };
+		3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaScalaTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F68ABB20FEEEDBC00D9AF2B /* CocoaScalaTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaScalaTest-Info.plist"; sourceTree = "<group>"; };
+		3F68ABC70FEEF0F900D9AF2B /* CSTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSTest.h; path = "test-fw-src/CSTest.h"; sourceTree = "<group>"; };
+		3F68ABC80FEEF0F900D9AF2B /* CSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSTest.m; path = "test-fw-src/CSTest.m"; sourceTree = "<group>"; };
+		3F68AC9D0FF2B5EC00D9AF2B /* cocoa_OCClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_OCClass.h; path = "jni-src/cocoa_OCClass.h"; sourceTree = "<group>"; };
+		3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_OCClass.m; path = "jni-src/cocoa_OCClass.m"; sourceTree = "<group>"; };
+		3F68AC9F0FF2B5EC00D9AF2B /* cocoa___ID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "cocoa___ID.h"; path = "jni-src/cocoa___ID.h"; sourceTree = "<group>"; };
+		3F68ACA00FF2B5EC00D9AF2B /* cocoa_OCBridge__.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_OCBridge__.h; path = "jni-src/cocoa_OCBridge__.h"; sourceTree = "<group>"; };
+		3F68ACA50FF2B9D500D9AF2B /* cocoa_OCBridge__.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_OCBridge__.m; path = "jni-src/cocoa_OCBridge__.m"; sourceTree = "<group>"; };
+		3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "cocoa___ID.m"; path = "jni-src/cocoa___ID.m"; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CocoaScala.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaScala.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -85,6 +148,23 @@
 			files = (
 				3F68AAF20FEBE64500D9AF2B /* Cocoa.framework in Frameworks */,
 				3F68AAF30FEBE64500D9AF2B /* JavaVM.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68AB5C0FEE600000D9AF2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F68ABC00FEEEE5B00D9AF2B /* CocoaScalaTest.framework in Frameworks */,
+				3F68AB930FEE998500D9AF2B /* CocoaScala.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68ABAF0FEEEDBC00D9AF2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F68ABB80FEEEE0200D9AF2B /* CocoaScala.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +185,8 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* CocoaScala.framework */,
 				3F68AABF0FEBE58B00D9AF2B /* libCocoaScala.jnilib */,
+				3F68AB5E0FEE600000D9AF2B /* UnitTests.app */,
+				3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,13 +194,17 @@
 		0867D691FE84028FC02AAC07 /* CocoaScala */ = {
 			isa = PBXGroup;
 			children = (
-				3F68AAB20FEBE48A00D9AF2B /* JNI Source */,
 				3F39CEC70FE99F1A00F097E7 /* jars */,
+				3F68ABC60FEEEF8F00D9AF2B /* Test Framework Source */,
+				3F68AB7A0FEE95EB00D9AF2B /* Test Source */,
+				3F68AAB20FEBE48A00D9AF2B /* JNI Source */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				3F68AB600FEE600100D9AF2B /* UnitTests-Info.plist */,
+				3F68ABB20FEEEDBC00D9AF2B /* CocoaScalaTest-Info.plist */,
 			);
 			name = CocoaScala;
 			sourceTree = "<group>";
@@ -144,6 +230,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3F68AB320FEC291800D9AF2B /* ScalaBridge.h */,
+				3F68AB330FEC291800D9AF2B /* ScalaBridge.m */,
 				3F39CE9C0FE99AD200F097E7 /* CocoaScala.h */,
 				3F39CE9D0FE99AD200F097E7 /* CSRuntime.h */,
 				3F39CE9E0FE99AD200F097E7 /* CSRuntime.m */,
@@ -181,6 +269,8 @@
 		3F39CEC70FE99F1A00F097E7 /* jars */ = {
 			isa = PBXGroup;
 			children = (
+				3F68AB810FEE98E400D9AF2B /* cocoascala-0.1-test.jar */,
+				3F68AB710FEE959300D9AF2B /* scalatest-0.9.5.jar */,
 				3F39CEC80FE99F3E00F097E7 /* scala-library.jar */,
 				3F39CEC10FE99EE400F097E7 /* cocoascala-0.1.jar */,
 			);
@@ -190,11 +280,31 @@
 		3F68AAB20FEBE48A00D9AF2B /* JNI Source */ = {
 			isa = PBXGroup;
 			children = (
-				3F68AAB50FEBE52600D9AF2B /* cocoa_ObjcBridge__.h */,
-				3F68AAB60FEBE52600D9AF2B /* cocoa_ObjcRef.h */,
-				3F68AAB70FEBE52600D9AF2B /* cocoascala.m */,
+				3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */,
+				3F68ACA50FF2B9D500D9AF2B /* cocoa_OCBridge__.m */,
+				3F68AC9D0FF2B5EC00D9AF2B /* cocoa_OCClass.h */,
+				3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */,
+				3F68AC9F0FF2B5EC00D9AF2B /* cocoa___ID.h */,
+				3F68ACA00FF2B5EC00D9AF2B /* cocoa_OCBridge__.h */,
 			);
 			name = "JNI Source";
+			sourceTree = "<group>";
+		};
+		3F68AB7A0FEE95EB00D9AF2B /* Test Source */ = {
+			isa = PBXGroup;
+			children = (
+				3F68AB7B0FEE96D400D9AF2B /* main.m */,
+			);
+			name = "Test Source";
+			sourceTree = "<group>";
+		};
+		3F68ABC60FEEEF8F00D9AF2B /* Test Framework Source */ = {
+			isa = PBXGroup;
+			children = (
+				3F68ABC70FEEF0F900D9AF2B /* CSTest.h */,
+				3F68ABC80FEEF0F900D9AF2B /* CSTest.m */,
+			);
+			name = "Test Framework Source";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,10 +317,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F68ABAC0FEEEDBC00D9AF2B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F68ABC90FEEF0F900D9AF2B /* CSTest.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF500486A6940098B216 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F68AB340FEC291800D9AF2B /* ScalaBridge.h in Headers */,
 				3F39CE9F0FE99AD200F097E7 /* CocoaScala.h in Headers */,
 				3F39CEA00FE99AD200F097E7 /* CSRuntime.h in Headers */,
 			);
@@ -235,6 +354,44 @@
 			productName = JNILib;
 			productReference = 3F68AABF0FEBE58B00D9AF2B /* libCocoaScala.jnilib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		3F68AB5D0FEE600000D9AF2B /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F68AB630FEE600300D9AF2B /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				3F68AB5A0FEE600000D9AF2B /* Resources */,
+				3F68AB5B0FEE600000D9AF2B /* Sources */,
+				3F68AB5C0FEE600000D9AF2B /* Frameworks */,
+				3F68AB790FEE95E100D9AF2B /* Copy Java Resources */,
+				3F68AB970FEE998B00D9AF2B /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = 3F68AB5E0FEE600000D9AF2B /* UnitTests.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3F68ABB00FEEEDBC00D9AF2B /* CocoaScalaTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F68ABB50FEEEDBD00D9AF2B /* Build configuration list for PBXNativeTarget "CocoaScalaTest" */;
+			buildPhases = (
+				3F68ABAC0FEEEDBC00D9AF2B /* Headers */,
+				3F68ABAD0FEEEDBC00D9AF2B /* Resources */,
+				3F68ABAE0FEEEDBC00D9AF2B /* Sources */,
+				3F68ABAF0FEEEDBC00D9AF2B /* Frameworks */,
+				3F68ABBE0FEEEE5700D9AF2B /* Copy Java Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CocoaScalaTest;
+			productName = CocoaScalaTest;
+			productReference = 3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		8DC2EF4F0486A6940098B216 /* CocoaScala */ = {
 			isa = PBXNativeTarget;
@@ -273,11 +430,27 @@
 			targets = (
 				3F68AABE0FEBE58B00D9AF2B /* JNILib */,
 				8DC2EF4F0486A6940098B216 /* CocoaScala */,
+				3F68ABB00FEEEDBC00D9AF2B /* CocoaScalaTest */,
+				3F68AB5D0FEE600000D9AF2B /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3F68AB5A0FEE600000D9AF2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68ABAD0FEEEDBC00D9AF2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF520486A6940098B216 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,7 +466,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F68AAC30FEBE60D00D9AF2B /* cocoascala.m in Sources */,
+				3FC1AB660FF3FCAF00DB42B4 /* ScalaBridge.m in Sources */,
+				3F68ACA70FF2B9F700D9AF2B /* cocoa_OCClass.m in Sources */,
+				3F68ACA60FF2B9D500D9AF2B /* cocoa_OCBridge__.m in Sources */,
+				3FC1AC6E0FF5097900DB42B4 /* cocoa___ID.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68AB5B0FEE600000D9AF2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F68AB7C0FEE96D400D9AF2B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F68ABAE0FEEEDBC00D9AF2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F68ABCA0FEEF0F900D9AF2B /* CSTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F39CEA10FE99AD200F097E7 /* CSRuntime.m in Sources */,
+				3F68AB350FEC291800D9AF2B /* ScalaBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -406,7 +600,7 @@
 		3F68AAC00FEBE58C00D9AF2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -425,13 +619,15 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JNILib;
+				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/System/Library/Frameworks/JavaVM.framework/Headers";
 			};
 			name = Debug;
 		};
 		3F68AAC10FEBE58C00D9AF2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -439,7 +635,7 @@
 				EXECUTABLE_EXTENSION = jnilib;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_GC = required;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
@@ -452,6 +648,113 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = libCocoaScala;
+				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/System/Library/Frameworks/JavaVM.framework/Headers";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		3F68AB610FEE600300D9AF2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+			};
+			name = Debug;
+		};
+		3F68AB620FEE600300D9AF2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		3F68ABB30FEEEDBD00D9AF2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "CocoaScalaTest-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = CocoaScalaTest;
+			};
+			name = Debug;
+		};
+		3F68ABB40FEEEDBD00D9AF2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "CocoaScalaTest-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = CocoaScalaTest;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -482,6 +785,24 @@
 			buildConfigurations = (
 				3F68AAC00FEBE58C00D9AF2B /* Debug */,
 				3F68AAC10FEBE58C00D9AF2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F68AB630FEE600300D9AF2B /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F68AB610FEE600300D9AF2B /* Debug */,
+				3F68AB620FEE600300D9AF2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F68ABB50FEEEDBD00D9AF2B /* Build configuration list for PBXNativeTarget "CocoaScalaTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F68ABB30FEEEDBD00D9AF2B /* Debug */,
+				3F68ABB40FEEEDBD00D9AF2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

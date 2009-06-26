@@ -30,3 +30,21 @@ The Scala code in milestone 1 might look something like the following:
     val imageResources = mainBundle!('pathsForResourcesOfType->"jar", 'inDirectory->"Java")
     ...
     
+There are currently three parts to this project:
+  * the scala code, which represents the scala half of the bridge
+  * JNI code, which represents the objective-c side of the bridge
+  * a Cocoa framework, which encapsulates everything     
+    
+To build this project, you need simple-build-tool 
+(http://code.google.com/p/simple-build-tool/).  To build the framework,
+issue "sbt framework" from the base project directory.  The 'framework'
+target builds cocoascala.jar, libCocoaScala.jnilib, and CocoaScala.framework
+(which contains the jar and the jnilib).
+
+CocoaScala.framework contains a method, CSApplicationMain, which should be 
+used in place of NSApplicationMain in your applications main function.  The 
+framework will startup a JavaVM and execute the main method on the class named 
+as the first argument to CSApplicationMain.
+
+
+    
