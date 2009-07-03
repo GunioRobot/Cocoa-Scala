@@ -3,18 +3,18 @@ package cocoa
 import org.scalatest._
 
 class BridgeSuite extends FunSuite {
-    test("OCBridge.getClass(\"NSObject\") should return an OCClass") {
-        assert(OCBridge.getClass("NSObject").className === "NSObject")
+    test("Bridge.getClass(\"NSObject\") should return an OCClass") {
+        assert(Bridge.getClass("NSObject").className === "NSObject")
     }
 
-    test("OCBridge.getClass(\"NotAClass\") should throw OCClassNotFoundException") {
+    test("Bridge.getClass(\"NotAClass\") should throw OCClassNotFoundException") {
         intercept[OCClassNotFoundException] {
-			OCBridge.getClass("NotAClass")
+			Bridge.getClass("NotAClass")
 		}
     }
 
-	test("OCBridge.stringToNSString(\"foo\") should return an NSString") {
-		val nsstr = OCBridge.stringToNSString("foo")
+	test("Bridge.stringToNSString(\"foo\") should return an NSString") {
+		val nsstr = Bridge.stringToNSString("foo")
 		assert(nsstr.toString === "foo")
 	}
 }

@@ -17,11 +17,27 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_alloc
 
 /*
  * Class:     cocoa_OCClass
+ * Method:    cocoa_00024OCClass_00024_00024lookupMethod
+ * Signature: (Lcocoa/Selector;)Lcocoa/Method;
+ */
+JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024lookupMethod
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     cocoa_OCClass
  * Method:    respondsToSelector
  * Signature: (Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_respondsToSelector
   (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     cocoa_OCClass
+ * Method:    isMetaClass
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_isMetaClass
+  (JNIEnv *, jobject);
 
 /*
  * Class:     cocoa_OCClass

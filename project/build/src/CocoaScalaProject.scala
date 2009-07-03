@@ -13,9 +13,11 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
 	val targetJNILibPath = targetPath / "libCocoaScala.jnilib"
     
     val nativeClasses = List(
-        "cocoa.OCBridge$",
+        "cocoa.Bridge$",
         "cocoa.$ID",
-		"cocoa.OCClass")
+		"cocoa.OCClass",
+		"cocoa.Selector$",
+		"cocoa.Method")
         
     override def cleanAction = super.cleanAction dependsOn cleanFramework
         

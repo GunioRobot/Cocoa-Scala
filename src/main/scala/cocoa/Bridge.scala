@@ -2,10 +2,11 @@ package cocoa
 
 import scala.collection.mutable.HashMap
 
-object OCBridge {
+object Bridge {
     System.loadLibrary("CocoaScala")
 
 	private val classCache = new HashMap[String,OCClass]
+	private val metaClassCache = new HashMap[String,OCClass]
 	
     /**
      * Returns an ObjcClass object respresenting the indicated
@@ -15,7 +16,7 @@ object OCBridge {
 	def getClass(className: String): OCClass = {
 		classCache.synchronized {
 			classCache.get(className) getOrElse {
-				val clz = findClass(className)
+				val clz = findClass(className, false)
 				classCache(className) = clz
 				clz
 			}
@@ -27,8 +28,23 @@ object OCBridge {
      * Objective-C class.  
      * @throws OCClassNotFoundException if the class is not found.
      */
+	def getMetaClass(className: String): OCClass = {
+		metaClassCache.synchronized {
+			metaClassCache.get(className) getOrElse {
+				val clz = findClass(className, true)
+				metaClassCache(className) = clz
+				clz
+			}
+		}
+	}
+
+    /**
+     * Returns an ObjcClass object respresenting the indicated
+     * Objective-C class.  
+     * @throws OCClassNotFoundException if the class is not found.
+     */
     @throws(classOf[OCClassNotFoundException])
-    @native private def findClass(className: String): OCClass
+    @native private def findClass(className: String, meta: Boolean): OCClass
 
 	/**
 	 * Gets the OCClass for the given proxy object.
@@ -47,3 +63,4 @@ object OCBridge {
 }
 
 class OCClassNotFoundException(className: String) extends Exception(className)
+class SelectorNotRecognizedException(selector: String) extends Exception(selector)

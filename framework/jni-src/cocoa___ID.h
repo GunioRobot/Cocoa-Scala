@@ -9,22 +9,6 @@ extern "C" {
 #endif
 /*
  * Class:     cocoa___ID
- * Method:    _00024bang
- * Signature: (Lscala/Seq;)Ljava/lang/Object;
- */
-JNIEXPORT jobject JNICALL Java_cocoa__00024ID__00024bang__Lscala_Seq_2
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     cocoa___ID
- * Method:    _00024bang
- * Signature: (Lscala/Symbol;)Ljava/lang/Object;
- */
-JNIEXPORT jobject JNICALL Java_cocoa__00024ID__00024bang__Lscala_Symbol_2
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     cocoa___ID
  * Method:    finalize
  * Signature: ()V
  */

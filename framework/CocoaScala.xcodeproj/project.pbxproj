@@ -28,10 +28,12 @@
 		3F68ABC00FEEEE5B00D9AF2B /* CocoaScalaTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */; };
 		3F68ABC90FEEF0F900D9AF2B /* CSTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F68ABC70FEEF0F900D9AF2B /* CSTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F68ABCA0FEEF0F900D9AF2B /* CSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68ABC80FEEF0F900D9AF2B /* CSTest.m */; };
-		3F68ACA60FF2B9D500D9AF2B /* cocoa_OCBridge__.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68ACA50FF2B9D500D9AF2B /* cocoa_OCBridge__.m */; };
+		3F68ACA60FF2B9D500D9AF2B /* cocoa_Bridge__.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68ACA50FF2B9D500D9AF2B /* cocoa_Bridge__.m */; };
 		3F68ACA70FF2B9F700D9AF2B /* cocoa_OCClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */; };
 		3FC1AB660FF3FCAF00DB42B4 /* ScalaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AB330FEC291800D9AF2B /* ScalaBridge.m */; };
 		3FC1AC6E0FF5097900DB42B4 /* cocoa___ID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */; };
+		3FC1AD740FFCDA5700DB42B4 /* cocoa_Selector__.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1AD720FFCDA5700DB42B4 /* cocoa_Selector__.m */; };
+		3FC1ADB50FFCEB8B00DB42B4 /* cocoa_Method.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1ADB30FFCEB8B00DB42B4 /* cocoa_Method.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -133,9 +135,13 @@
 		3F68AC9D0FF2B5EC00D9AF2B /* cocoa_OCClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_OCClass.h; path = "jni-src/cocoa_OCClass.h"; sourceTree = "<group>"; };
 		3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_OCClass.m; path = "jni-src/cocoa_OCClass.m"; sourceTree = "<group>"; };
 		3F68AC9F0FF2B5EC00D9AF2B /* cocoa___ID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "cocoa___ID.h"; path = "jni-src/cocoa___ID.h"; sourceTree = "<group>"; };
-		3F68ACA00FF2B5EC00D9AF2B /* cocoa_OCBridge__.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_OCBridge__.h; path = "jni-src/cocoa_OCBridge__.h"; sourceTree = "<group>"; };
-		3F68ACA50FF2B9D500D9AF2B /* cocoa_OCBridge__.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_OCBridge__.m; path = "jni-src/cocoa_OCBridge__.m"; sourceTree = "<group>"; };
+		3F68ACA00FF2B5EC00D9AF2B /* cocoa_Bridge__.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_Bridge__.h; path = "jni-src/cocoa_Bridge__.h"; sourceTree = "<group>"; };
+		3F68ACA50FF2B9D500D9AF2B /* cocoa_Bridge__.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_Bridge__.m; path = "jni-src/cocoa_Bridge__.m"; sourceTree = "<group>"; };
 		3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "cocoa___ID.m"; path = "jni-src/cocoa___ID.m"; sourceTree = "<group>"; };
+		3FC1AD710FFCDA5700DB42B4 /* cocoa_Selector__.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_Selector__.h; path = "jni-src/cocoa_Selector__.h"; sourceTree = "<group>"; };
+		3FC1AD720FFCDA5700DB42B4 /* cocoa_Selector__.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_Selector__.m; path = "jni-src/cocoa_Selector__.m"; sourceTree = "<group>"; };
+		3FC1ADB20FFCEB8B00DB42B4 /* cocoa_Method.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_Method.h; path = "jni-src/cocoa_Method.h"; sourceTree = "<group>"; };
+		3FC1ADB30FFCEB8B00DB42B4 /* cocoa_Method.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_Method.m; path = "jni-src/cocoa_Method.m"; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CocoaScala.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaScala.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -280,12 +286,16 @@
 		3F68AAB20FEBE48A00D9AF2B /* JNI Source */ = {
 			isa = PBXGroup;
 			children = (
+				3FC1ADB20FFCEB8B00DB42B4 /* cocoa_Method.h */,
+				3FC1ADB30FFCEB8B00DB42B4 /* cocoa_Method.m */,
+				3FC1AD710FFCDA5700DB42B4 /* cocoa_Selector__.h */,
+				3FC1AD720FFCDA5700DB42B4 /* cocoa_Selector__.m */,
 				3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */,
-				3F68ACA50FF2B9D500D9AF2B /* cocoa_OCBridge__.m */,
+				3F68ACA50FF2B9D500D9AF2B /* cocoa_Bridge__.m */,
 				3F68AC9D0FF2B5EC00D9AF2B /* cocoa_OCClass.h */,
 				3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */,
 				3F68AC9F0FF2B5EC00D9AF2B /* cocoa___ID.h */,
-				3F68ACA00FF2B5EC00D9AF2B /* cocoa_OCBridge__.h */,
+				3F68ACA00FF2B5EC00D9AF2B /* cocoa_Bridge__.h */,
 			);
 			name = "JNI Source";
 			sourceTree = "<group>";
@@ -468,8 +478,10 @@
 			files = (
 				3FC1AB660FF3FCAF00DB42B4 /* ScalaBridge.m in Sources */,
 				3F68ACA70FF2B9F700D9AF2B /* cocoa_OCClass.m in Sources */,
-				3F68ACA60FF2B9D500D9AF2B /* cocoa_OCBridge__.m in Sources */,
+				3F68ACA60FF2B9D500D9AF2B /* cocoa_Bridge__.m in Sources */,
 				3FC1AC6E0FF5097900DB42B4 /* cocoa___ID.m in Sources */,
+				3FC1AD740FFCDA5700DB42B4 /* cocoa_Selector__.m in Sources */,
+				3FC1ADB50FFCEB8B00DB42B4 /* cocoa_Method.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
