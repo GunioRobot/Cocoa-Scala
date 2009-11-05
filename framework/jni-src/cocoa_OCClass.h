@@ -17,10 +17,10 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_alloc
 
 /*
  * Class:     cocoa_OCClass
- * Method:    cocoa_00024OCClass_00024_00024lookupMethod
+ * Method:    cocoa_00024OCClass_00024_00024findMethod
  * Signature: (Lcocoa/Selector;)Lcocoa/Method;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024lookupMethod
+JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findMethod
   (JNIEnv *, jobject, jobject);
 
 /*
@@ -33,14 +33,6 @@ JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_respondsToSelector
 
 /*
  * Class:     cocoa_OCClass
- * Method:    isMetaClass
- * Signature: ()Z
- */
-JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_isMetaClass
-  (JNIEnv *, jobject);
-
-/*
- * Class:     cocoa_OCClass
  * Method:    superClass
  * Signature: ()Lcocoa/OCClass;
  */
@@ -49,11 +41,11 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_superClass
 
 /*
  * Class:     cocoa_OCClass
- * Method:    className
- * Signature: ()Ljava/lang/String;
+ * Method:    attach
+ * Signature: (Ljava/lang/String;Z)V
  */
-JNIEXPORT jstring JNICALL Java_cocoa_OCClass_className
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_cocoa_OCClass_attach
+  (JNIEnv *, jobject, jstring, jboolean);
 
 #ifdef __cplusplus
 }

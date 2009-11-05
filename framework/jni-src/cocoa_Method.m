@@ -12,9 +12,13 @@ JNIEXPORT jobject JNICALL Java_cocoa_Method_sendMsg(JNIEnv* env, jobject methodJ
 													jobject recvProxy, jobjectArray argsJArr)
 {
 	id recv = (id)UnwrapProxy(env, recvProxy);
+	NSLog(@"recv=%@", recv);
 	SEL sel = (SEL)UnwrapProxy(env, selJObj);
-	int argCount = (*env)->GetArrayLength(env, argsJArr);
-	IMP imp = (IMP) JLONG_TO_NPTR(fnPtr);
+	NSLog(@"sel=%s", sel);
+	int argCount = argsJArr ? (*env)->GetArrayLength(env, argsJArr) : 0;
+	NSLog(@"argCount=%d", argCount);
+	IMP imp = (IMP) jlong_to_ptr(fnPtr);
+	NSLog(@"imp=%p", imp);
 	
 	if (argCount == 0) {
 		switch (returnType) {
@@ -22,10 +26,10 @@ JNIEXPORT jobject JNICALL Java_cocoa_Method_sendMsg(JNIEnv* env, jobject methodJ
 				(*imp)(recv, sel);
 				return nil;
 				
-			case 'i':
+			case 'i': case 'l':
 				return BoxInt(env, (*(int32_t(*)(id,SEL))imp)(recv, sel));
 				
-			case 'I':
+			case 'I': case 'L':
 				return BoxLong(env, (*(uint32_t(*)(id,SEL))imp)(recv, sel));
 				
 			case 'q': case 'Q': 
@@ -36,9 +40,26 @@ JNIEXPORT jobject JNICALL Java_cocoa_Method_sendMsg(JNIEnv* env, jobject methodJ
 				
 			case 'd': 
 				return BoxDouble(env, (*(double(*)(id,SEL))imp)(recv, sel));
+				
+			case '@':
+				return NewProxy(env, (*imp)(recv, sel));
+				
+			case '#':
+				return GetClassProxy(env, (Class)(*imp)(recv, sel));
 		}
 	}
 	
+	/*
+	ffi_cif* cif = (ffi_cif*) jlong_to_ptr(fficifPtr);
+	void* argPtrs[argCount + 2];
+	argPtrs[0] = &recv;
+	argPtrs[1] = &sel;
+	
+	for (int i = 0; i < argCount; i++) {
+	}
+	
+	ffi_call(cif, imp, void *RVALUE, argPtrs);
+	*/
 	return nil;
 }
 

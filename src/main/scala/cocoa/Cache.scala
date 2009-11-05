@@ -21,4 +21,21 @@ private[cocoa] class Cache[K,V](gen: K=>Option[V]) {
 			}
 		}
 	}
+	
+	def update(key: K, v: V) {
+		map.synchronized {
+			map(key) = v
+		}
+	}
+	
+	def contains(key: K) = map.contains(key)
+}
+
+private[cocoa] object Cache {
+	def opt[K,V](gen: K=>Option[V]) = new Cache[K,V](gen)
+	def strict[K,V](gen: K=>V) = new Cache[K,V](key => {
+		val v = gen(key)
+		if (v == null) None
+		else Some(v)
+	})
 }

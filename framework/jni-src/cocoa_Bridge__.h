@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     cocoa_Bridge__
  * Method:    nsStringToString
- * Signature: (Lcocoa/NSString;)Ljava/lang/String;
+ * Signature: (Lcocoa/foundation/NSString;)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_cocoa_Bridge_00024_nsStringToString
   (JNIEnv *, jobject, jobject);
@@ -18,9 +18,17 @@ JNIEXPORT jstring JNICALL Java_cocoa_Bridge_00024_nsStringToString
 /*
  * Class:     cocoa_Bridge__
  * Method:    stringToNSString
- * Signature: (Ljava/lang/String;)Lcocoa/NSString;
+ * Signature: (Ljava/lang/String;)Lcocoa/foundation/NSString;
  */
 JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_stringToNSString
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     cocoa_Bridge__
+ * Method:    cocoa_00024Bridge_00024_00024newSel
+ * Signature: (Ljava/lang/String;)Lcocoa/Selector;
+ */
+JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024newSel
   (JNIEnv *, jobject, jstring);
 
 /*
@@ -34,10 +42,10 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_getClass
 /*
  * Class:     cocoa_Bridge__
  * Method:    cocoa_00024Bridge_00024_00024findClass
- * Signature: (Ljava/lang/String;Z)Lcocoa/OCClass;
+ * Signature: (Ljava/lang/String;)Lcocoa/OCClass;
  */
 JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024findClass
-  (JNIEnv *, jobject, jstring, jboolean);
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

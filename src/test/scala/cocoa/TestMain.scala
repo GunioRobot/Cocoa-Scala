@@ -5,7 +5,7 @@ object TestMain {
 		new BridgeSuite().execute()
 		new ClassSuite().execute()
 		new IDSuite().execute()
-		new SelectorSuite().execute()
 		new MethodSuite().execute()
+		new SelectorSuite().execute()
 	}
 }

@@ -13,22 +13,28 @@ jobject GetBridge(JNIEnv* env, jclass bridgeClass) {
 	return (*env)->GetStaticObjectField(env, bridgeClass, moduleField);
 }
 
-jobject NewProxy(JNIEnv* env, id self, const char* proxyClassName) {
-    jclass proxyClass = (*env)->FindClass(env, proxyClassName);
-    jmethodID constructorID = (*env)->GetMethodID(env, proxyClass, "<init>", "()V");
-    jobject proxy = (*env)->NewObject(env, proxyClass, constructorID);
-	jclass nativeProxyClass = (*env)->FindClass(env, "cocoa/NativeProxy");
-    jfieldID nptrField = (*env)->GetFieldID(env, nativeProxyClass, "nptr", "J");
-	(*env)->SetLongField(env, proxy, nptrField, NPTR_TO_JLONG(self));
-	CFRetain(self);
-	return proxy;
+jobject NewProxy(JNIEnv* env, id self) {
+	if (self == nil) {
+		return nil;
+	}
+	else {
+		jstring classNameJStr = (*env)->NewStringUTF(env, object_getClassName(self));
+		jclass bridgeClass = (*env)->FindClass(env, "cocoa/Bridge");
+		jmethodID newProxyMethod = (*env)->GetStaticMethodID(env, bridgeClass, "newProxy", "(Ljava/lang/String;)Lcocoa/$ID;");
+		jobject proxy = (*env)->CallStaticObjectMethod(env, bridgeClass, newProxyMethod, classNameJStr);
+		jclass nativeProxyClass = (*env)->FindClass(env, "cocoa/NativeProxy");
+		jfieldID nptrField = (*env)->GetFieldID(env, nativeProxyClass, "nptr", "J");
+		(*env)->SetLongField(env, proxy, nptrField, ptr_to_jlong(self));
+		CFRetain(self);
+		return proxy;
+	}
 }
 
 void* UnwrapProxy(JNIEnv* env, jobject this) {
 	jclass nativeProxyClass = (*env)->FindClass(env, "cocoa/NativeProxy");
     jfieldID nptrField = (*env)->GetFieldID(env, nativeProxyClass, "nptr", "J");
 	jlong nptr = (*env)->GetLongField(env, this, nptrField);
-	return JLONG_TO_NPTR(nptr);
+	return jlong_to_ptr(nptr);
 }
 
 jobject GetClassProxy(JNIEnv* env, Class class) {
@@ -46,18 +52,6 @@ jobject GetClassProxy(JNIEnv* env, Class class) {
 		jobject proxy = (*env)->CallObjectMethod(env, bridge, getterMethod, classNameJStr);
 		return proxy;
 	}
-}
-
-jobject NSStringToJString(JNIEnv* env, NSString* nsstr) {
-    const char* utf8str = [nsstr UTF8String];
-    return (*env)->NewStringUTF(env, utf8str);
-}
-
-NSString* JStringToNSString(JNIEnv* env, jstring jstr) {
-    const char* utf8str  = (*env)->GetStringUTFChars(env, jstr, JNI_FALSE);
-    NSString* nsstr = [NSString stringWithUTF8String: utf8str];
-    (*env)->ReleaseStringUTFChars(env, jstr, utf8str);
-    return nsstr;
 }
 
 SEL JStringToSEL(JNIEnv* env, jstring selJStr) {

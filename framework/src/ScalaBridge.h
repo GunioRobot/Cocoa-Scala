@@ -8,22 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <JavaVM/jni.h>
+#import <JavaNativeFoundation/JNFJNI.h>
+#import <JavaNativeFoundation/JNFString.h>
 #import <objc/runtime.h>
 
-#ifdef __LP64__
-#define NPTR_TO_JLONG(nptr) ((jlong)nptr)
-#define JLONG_TO_NPTR(jl) ((void*)jl)
-#else
-#define NPTR_TO_JLONG(nptr) ((jlong)(jint)nptr)
-#define JLONG_TO_NPTR(jl) ((void*)(jint)jl)
-#endif
-
-jobject NewProxy(JNIEnv* env, id self, const char* proxyClassName);
+jobject NewProxy(JNIEnv* env, id self);
 void* UnwrapProxy(JNIEnv* env, jobject this);
 jobject GetClassProxy(JNIEnv* env, Class class);
-
-jobject NSStringToJString(JNIEnv* env, NSString* nsstr);
-NSString* JStringToNSString(JNIEnv* env, jstring jstr);
 
 SEL JStringToSEL(JNIEnv* env, jstring jstr);
 jobject GetOCType(JNIEnv* env, const char* descr);

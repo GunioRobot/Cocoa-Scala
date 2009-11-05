@@ -16,7 +16,6 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
         "cocoa.Bridge$",
         "cocoa.$ID",
 		"cocoa.OCClass",
-		"cocoa.Selector$",
 		"cocoa.Method")
         
     override def cleanAction = super.cleanAction dependsOn cleanFramework
@@ -28,8 +27,8 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
     
     lazy val framework = task {
         FileUtilities.clean(List(targetFrameworkPath), log)
-        ("xcodebuild -target CocoaScala" cwd frameworkPath) ! log
-        copyDirectory(frameworkPath / "build" / "Release" / "CocoaScala.framework", 
+        Process("xcodebuild -target CocoaScala", frameworkPath) ! log
+        copyDirectory(targetPath / "framework" / "Release" / "CocoaScala.framework", 
             targetFrameworkPath, 
             log)
         None
@@ -37,21 +36,30 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
 
     lazy val jnilib = task {
         FileUtilities.clean(List(targetJNILibPath), log)
-        ("xcodebuild -target JNILib" cwd frameworkPath) ! log
-        copyFile(frameworkPath / "build" / "Release" / "libCocoaScala.jniLib", 
+        Process("xcodebuild -target JNILib", frameworkPath) ! log
+        copyFile(targetPath / "framework" / "Release" / "libCocoaScala.jniLib", 
+            targetJNILibPath, 
+            log)
+        None
+    }
+
+    lazy val jnilibDebug = task {
+        FileUtilities.clean(List(targetJNILibPath), log)
+        Process("xcodebuild -target JNILib -configuration Debug", frameworkPath) ! log
+        copyFile(targetPath / "framework" / "Debug" / "libCocoaScala.jniLib", 
             targetJNILibPath, 
             log)
         None
     }
 
     lazy val cleanFramework = task {
-        ("xcodebuild clean" cwd frameworkPath) ! log
+        Process("xcodebuild clean", frameworkPath) ! log
         None
     }
 
 	lazy val testApp = task {
-        "xcodebuild -target UnitTests".cwd(frameworkPath) ! log
-		("open -W " + frameworkPath / "build" / "Release" / "UnitTests.app") ! log
+        Process("xcodebuild -target UnitTests", frameworkPath) ! log
+		Process("open -W " + (frameworkPath / "build" / "Release" / "UnitTests.app")) ! log
 		None
 	} dependsOn(packageTest)
 }
