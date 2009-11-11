@@ -1,5 +1,9 @@
 package cocoa
 
+/**
+ * This class is used to wrap a pointer to a native data structure, such as
+ * an objective-c object or a SEL.
+ */
 protected[cocoa] class NativeProxy {
     /** stores a pointer to the underlying objective-c object */
     protected var nptr: Long = _    
@@ -19,8 +23,8 @@ protected[cocoa] class NativeProxy {
     /** equality is based upon native pointer */
     override def equals(v: Any) = v match {
         case that: NativeProxy => 
-            Console.println("equals: " + this.getClass.getName + "#" + this.nptr.toHexString +
-                ", " + that.getClass.getName + "#" + that.nptr.toHexString)
+            // Console.println("equals: " + this.getClass.getName + "#" + this.nptr.toHexString +
+            //     ", " + that.getClass.getName + "#" + that.nptr.toHexString)
             this.nptr == that.nptr
         case _ => false
     }

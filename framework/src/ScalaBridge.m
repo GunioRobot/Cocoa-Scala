@@ -80,33 +80,58 @@ jobject CSBGetOCType(JNIEnv* env, const char* uDescr) {
 }
 
 jobject CSBBoxObjectArray(JNIEnv* env, jobjectArray array) {
-	jclass class = (*env)->FindClass(env, "scala/runtime/BoxedObjectArray");
-	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "([Ljava/lang/Object;)V");
-	return (*env)->NewObject(env, class, cons, array);
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "scala/runtime/BoxedObjectArray");
+	CSB_STATIC JNF_CTOR_CACHE(jCons, jClass, "([Ljava/lang/Object;)V");
+	return JNFNewObject(env, jCons, array);
 }
 
 jobject CSBBoxInt(JNIEnv* env, jint p) {
-	jclass class = (*env)->FindClass(env, "java/lang/Integer");
-	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(I)V");
-	return (*env)->NewObject(env, class, cons, p);
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Integer");
+	CSB_STATIC JNF_CTOR_CACHE(jCons, jClass, "(I)V");
+	return JNFNewObject(env, jCons, p);
 }
 
 jobject CSBBoxLong(JNIEnv* env, jlong p) {
-	jclass class = (*env)->FindClass(env, "java/lang/Long");
-	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(J)V");
-	return (*env)->NewObject(env, class, cons, p);
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Long");
+	CSB_STATIC JNF_CTOR_CACHE(jCons, jClass, "(J)V");
+	return JNFNewObject(env, jCons, p);
 }
 
 jobject CSBBoxFloat(JNIEnv* env, jfloat p) {
-	jclass class = (*env)->FindClass(env, "java/lang/Float");
-	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(F)V");
-	return (*env)->NewObject(env, class, cons, p);
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Float");
+	CSB_STATIC JNF_CTOR_CACHE(jCons, jClass, "(F)V");
+	return JNFNewObject(env, jCons, p);
 }
 
 jobject CSBBoxDouble(JNIEnv* env, jdouble p) {
-	jclass class = (*env)->FindClass(env, "java/lang/Double");
-	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(D)V");
-	return (*env)->NewObject(env, class, cons, p);
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Double");
+	CSB_STATIC JNF_CTOR_CACHE(jCons, jClass, "(D)V");
+	return JNFNewObject(env, jCons, p);
 }
+
+jint CSBUnboxInt(JNIEnv* env, jobject p) {
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Integer");
+	CSB_STATIC JNF_MEMBER_CACHE(jMethod, jClass, "intValue", "()I");
+	return JNFCallIntMethod(env, p, jMethod);
+}
+
+jlong CSBUnboxLong(JNIEnv* env, jobject p) {
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Long");
+	CSB_STATIC JNF_MEMBER_CACHE(jMethod, jClass, "longValue", "()I");
+	return JNFCallIntMethod(env, p, jMethod);
+}
+
+jfloat CSBUnboxFloat(JNIEnv* env, jobject p) {
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Float");
+	CSB_STATIC JNF_MEMBER_CACHE(jMethod, jClass, "floatValue", "()I");
+	return JNFCallIntMethod(env, p, jMethod);
+}
+
+jdouble CSBUnboxDouble(JNIEnv* env, jobject p) {
+	CSB_STATIC JNF_CLASS_CACHE(jClass, "java/lang/Double");
+	CSB_STATIC JNF_MEMBER_CACHE(jMethod, jClass, "doubleValue", "()I");
+	return JNFCallIntMethod(env, p, jMethod);
+}
+
 
 

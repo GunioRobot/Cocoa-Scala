@@ -24,3 +24,8 @@ jobject CSBBoxInt(JNIEnv* env, jint p);
 jobject CSBBoxLong(JNIEnv* env, jlong p);
 jobject CSBBoxFloat(JNIEnv* env, jfloat p);
 jobject CSBBoxDouble(JNIEnv* env, jdouble p);
+
+jint CSBUnboxInt(JNIEnv* env, jobject p);
+jlong CSBUnboxLong(JNIEnv* env, jobject p);
+jfloat CSBUnboxFloat(JNIEnv* env, jobject p);
+jdouble CSBUnboxDouble(JNIEnv* env, jobject p);

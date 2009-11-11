@@ -16,7 +16,8 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
         "cocoa.Bridge$",
         "cocoa.$ID",
 		"cocoa.OCClass",
-		"cocoa.Method")
+		"cocoa.Method",
+		"cocoa.foundation.NSObject_class")
         
     override def cleanAction = super.cleanAction dependsOn cleanFramework
         

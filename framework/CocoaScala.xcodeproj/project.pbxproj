@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F04214810AB160C001824D2 /* cocoa_foundation_NSObject_class.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F04214710AB160C001824D2 /* cocoa_foundation_NSObject_class.h */; };
+		3F04214A10AB1673001824D2 /* cocoa_foundation_NSObject_class.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F04214910AB1673001824D2 /* cocoa_foundation_NSObject_class.m */; };
 		3F39CE9F0FE99AD200F097E7 /* CocoaScala.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F39CE9C0FE99AD200F097E7 /* CocoaScala.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F39CEA00FE99AD200F097E7 /* CSBRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F39CE9D0FE99AD200F097E7 /* CSBRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3F39CEA10FE99AD200F097E7 /* CSBRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39CE9E0FE99AD200F097E7 /* CSBRuntime.m */; };
@@ -106,6 +108,8 @@
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* CocoaScala_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaScala_Prefix.pch; sourceTree = "<group>"; };
+		3F04214710AB160C001824D2 /* cocoa_foundation_NSObject_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocoa_foundation_NSObject_class.h; path = "jni-src/cocoa_foundation_NSObject_class.h"; sourceTree = "<group>"; };
+		3F04214910AB1673001824D2 /* cocoa_foundation_NSObject_class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = cocoa_foundation_NSObject_class.m; path = "jni-src/cocoa_foundation_NSObject_class.m"; sourceTree = "<group>"; };
 		3F39CE9C0FE99AD200F097E7 /* CocoaScala.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CocoaScala.h; path = src/CocoaScala.h; sourceTree = "<group>"; };
 		3F39CE9D0FE99AD200F097E7 /* CSBRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSBRuntime.h; path = src/CSBRuntime.h; sourceTree = "<group>"; };
 		3F39CE9E0FE99AD200F097E7 /* CSBRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSBRuntime.m; path = src/CSBRuntime.m; sourceTree = "<group>"; };
@@ -283,6 +287,8 @@
 		3F68AAB20FEBE48A00D9AF2B /* JNI Source */ = {
 			isa = PBXGroup;
 			children = (
+				3F04214910AB1673001824D2 /* cocoa_foundation_NSObject_class.m */,
+				3F04214710AB160C001824D2 /* cocoa_foundation_NSObject_class.h */,
 				3FC1ADB20FFCEB8B00DB42B4 /* cocoa_Method.h */,
 				3FC1ADB30FFCEB8B00DB42B4 /* cocoa_Method.m */,
 				3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */,
@@ -319,6 +325,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F04214810AB160C001824D2 /* cocoa_foundation_NSObject_class.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +482,7 @@
 				3F68ACA60FF2B9D500D9AF2B /* cocoa_Bridge__.m in Sources */,
 				3FC1AC6E0FF5097900DB42B4 /* cocoa___ID.m in Sources */,
 				3FC1ADB50FFCEB8B00DB42B4 /* cocoa_Method.m in Sources */,
+				3F04214A10AB1673001824D2 /* cocoa_foundation_NSObject_class.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,15 +5,15 @@ class Method  (
     val returnType: OCType, 
     val paramTypes: Seq[OCType], 
     val fficif: Long, 
-    val fn: Long) {
-        
-//    Console.println("<init> => " + this)
-        
+    val fn: Long) 
+{
     private val returnTypeCode = returnType.code
     private val paramTypeCodes = paramTypes.map(_.code).toArray
     
-    def invoke(receiver: $ID, args: Array[Any]): Any = 
+    def invoke(receiver: $ID, args: Array[Any]): Any = {
+        // TODO validate argument types
         sendMsg(sel, returnTypeCode, paramTypeCodes, fficif, fn, receiver, args)
+    }
 
     @native private def sendMsg(
         sel: Selector, 

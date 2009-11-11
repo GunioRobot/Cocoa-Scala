@@ -25,7 +25,15 @@ class MethodSuite extends FunSuite {
         assert(str ! 'length === 0)
     }
     
+    test("NSString.isSubclassOfClass(NSObject) should be true") {
+        assert(NSString.isSubclassOfClass(NSObject) === true)
+    }
+    
+    test("NSObject.isSubclassOfClass(NSString) should be false") {
+        assert(NSObject.isSubclassOfClass(NSString) === false)
+    }
+    
     test("NSString ! isSubclassOfClass->NSObject should be true") {
-        assert(NSString!('isSubclassOfClass->NSObject) === true)
+        assert(NSString!('isSubclassOfClass->NSObject) === 1)
     }
 }

@@ -125,7 +125,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 	JNF_COCOA_ENTER(env);
 	Class oClass = (Class) CSBUnwrapProxy(env, this);
 	SEL sel = (SEL) CSBUnwrapProxy(env, jSel);
-	NSLog(@"findMethod %s %s", class_getName(oClass), sel);
+//	NSLog(@"findMethod %s/%d %s", class_getName(oClass), class_isMetaClass(oClass), sel);
 	Method oMethod = class_getInstanceMethod(oClass, sel);
 	jobject jReturnType;
 	jobjectArray jArgTypes;
@@ -135,14 +135,14 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 	IMP imp;
 	ffi_cif* cif = nil;
 	
-	NSLog(@"sel=%s", sel);
+//	NSLog(@"\tsel=%s", sel);
 	
 	if (oMethod) {
-		NSLog(@"typeEncoding=%s", method_getTypeEncoding(oMethod));
+//		NSLog(@"\ttypeEncoding=%s", method_getTypeEncoding(oMethod));
 		argCount = method_getNumberOfArguments(oMethod) - 2;
 		char* typeName = method_copyReturnType(oMethod);
 		jReturnType = CSBGetOCType(env, typeName);
-		NSLog(@"typeName=%s, typeObj=%p", typeName, jReturnType);
+//		NSLog(@"\ttypeName=%s, typeObj=%p", typeName, jReturnType);
 		free(typeName);
 		jArgTypes = (*env)->NewObjectArray(env, argCount, ocTypeClass, nil);
 		
@@ -155,6 +155,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 		}
 		
 		imp = method_getImplementation(oMethod);
+//		NSLog(@"\timp=%p", imp);
 	}
 	else {
 		// try using [self methodSignatureForSelector: sel] instead
@@ -164,7 +165,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 	if (argCount > 0) {
 		cif = (ffi_cif*)malloc(sizeof(ffi_cif));
 		ffi_type* ffiReturnType = OCTypeCodeToFFIType((*env)->CallCharMethod(env, jReturnType, codeMeth));
-		ffi_type* ffiArgTypes[argCount + 2];
+		ffi_type** ffiArgTypes = (ffi_type**)malloc((argCount + 2) * sizeof(ffi_type*));
 		
 		ffiArgTypes[0] = &ffi_type_pointer;
 		ffiArgTypes[1] = &ffi_type_pointer;

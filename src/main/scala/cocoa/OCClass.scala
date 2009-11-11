@@ -1,13 +1,9 @@
 package cocoa
 
-import scala.collection.mutable.HashMap
-
 /**
  * Instances of this class are used to proxy Objective-C classes.
  */
 class OCClass(val className: String, val isMetaClass: Boolean) extends $ID {
-//    new Exception(getClass.getName + "/" + className + (if (isMetaClass) "[meta]" else "")).printStackTrace
-    
     private val methods = Cache.strict((name:String) => findMethod(Selector(name)))
     
     /** gets the proxy for the superclass */
