@@ -7,94 +7,103 @@
 //
 
 #import "ScalaBridge.h"
+#import <JavaNativeFoundation/JavaNativeFoundation.h>
 
-jobject GetBridge(JNIEnv* env, jclass bridgeClass) {
-	jfieldID moduleField = (*env)->GetStaticFieldID(env, bridgeClass, "MODULE$", "Lcocoa/Bridge$;");
-	return (*env)->GetStaticObjectField(env, bridgeClass, moduleField);
+jobject CSBGetBridge(JNIEnv* env) {
+	CSB_STATIC JNF_CLASS_CACHE(jBridgeClass, "cocoa/Bridge$");
+	CSB_STATIC JNF_STATIC_MEMBER_CACHE(jModuleField, jBridgeClass, "MODULE$", "Lcocoa/Bridge$;");
+	CSB_STATIC jobject jBridge = nil;
+	if (!jBridge) {
+		jBridge = JNFNewGlobalRef(env, JNFGetStaticObjectField(env, jModuleField));
+	}
+	return jBridge;
 }
 
-jobject NewProxy(JNIEnv* env, id self) {
+jobject CSBNewProxy(JNIEnv* env, id self) {
+	CSB_STATIC JNF_CLASS_CACHE(jBridgeClass, "cocoa/Bridge$");
+	CSB_STATIC JNF_MEMBER_CACHE(jNewProxyMethod, jBridgeClass, "newProxy", "(Ljava/lang/String;)Lcocoa/$ID;");
+	CSB_STATIC JNF_CLASS_CACHE(jNativeProxyClass, "cocoa/NativeProxy");
+	CSB_STATIC JNF_MEMBER_CACHE(jNptrField, jNativeProxyClass, "nptr", "J");
+
 	if (self == nil) {
 		return nil;
 	}
 	else {
-		jstring classNameJStr = (*env)->NewStringUTF(env, object_getClassName(self));
-		jclass bridgeClass = (*env)->FindClass(env, "cocoa/Bridge");
-		jmethodID newProxyMethod = (*env)->GetStaticMethodID(env, bridgeClass, "newProxy", "(Ljava/lang/String;)Lcocoa/$ID;");
-		jobject proxy = (*env)->CallStaticObjectMethod(env, bridgeClass, newProxyMethod, classNameJStr);
-		jclass nativeProxyClass = (*env)->FindClass(env, "cocoa/NativeProxy");
-		jfieldID nptrField = (*env)->GetFieldID(env, nativeProxyClass, "nptr", "J");
-		(*env)->SetLongField(env, proxy, nptrField, ptr_to_jlong(self));
+		jobject jBridge = CSBGetBridge(env);
+		jstring jClassName = (*env)->NewStringUTF(env, object_getClassName(self));
+		jobject jProxy = JNFCallObjectMethod(env, jBridge, jNewProxyMethod, jClassName);
+		JNFSetLongField(env, jProxy, jNptrField, ptr_to_jlong(self));
 		CFRetain(self);
-		return proxy;
+		return jProxy;
 	}
 }
 
-void* UnwrapProxy(JNIEnv* env, jobject this) {
-	jclass nativeProxyClass = (*env)->FindClass(env, "cocoa/NativeProxy");
-    jfieldID nptrField = (*env)->GetFieldID(env, nativeProxyClass, "nptr", "J");
-	jlong nptr = (*env)->GetLongField(env, this, nptrField);
+void* CSBUnwrapProxy(JNIEnv* env, jobject this) {
+	CSB_STATIC JNF_CLASS_CACHE(jNativeProxyClass, "cocoa/NativeProxy");
+    CSB_STATIC JNF_MEMBER_CACHE(jNptrField, jNativeProxyClass, "nptr", "J");
+	jlong nptr = JNFGetLongField(env, this, jNptrField);
 	return jlong_to_ptr(nptr);
 }
 
-jobject GetClassProxy(JNIEnv* env, Class class) {
-	if (class == nil) {
+jobject CSBGetClassProxy(JNIEnv* env, Class oClass) {
+	CSB_STATIC JNF_CLASS_CACHE(jBridgeClass, "cocoa/Bridge$");
+	CSB_STATIC JNF_MEMBER_CACHE(jGetClassMethod, jBridgeClass, "getClass", "(Ljava/lang/String;)Lcocoa/OCClass;");
+	CSB_STATIC JNF_MEMBER_CACHE(jGetMetaClassMethod, jBridgeClass, "getMetaClass", "(Ljava/lang/String;)Lcocoa/OCClass;");
+
+	if (oClass == nil) {
 		return nil;
 	}
 	else {
-		const char* classNameUTF = class_getName(class);
-		jstring classNameJStr = (*env)->NewStringUTF(env, classNameUTF);	
-		jclass bridgeClass = (*env)->FindClass(env, "cocoa/Bridge$");
-		jobject bridge = GetBridge(env, bridgeClass);
-		jboolean isMetaClass = class_isMetaClass(class);
-		const char* getterName = isMetaClass ? "getMetaClass" : "getClass";
-		jmethodID getterMethod = (*env)->GetMethodID(env, bridgeClass, getterName, "(Ljava/lang/String;)Lcocoa/OCClass;");
-		jobject proxy = (*env)->CallObjectMethod(env, bridge, getterMethod, classNameJStr);
-		return proxy;
+		jobject jBridge = CSBGetBridge(env);
+		const char* uClassName = class_getName(oClass);
+		jstring jClassName = (*env)->NewStringUTF(env, uClassName);
+		jboolean isMetaClass = class_isMetaClass(oClass);
+		return JNFCallObjectMethod(env, jBridge, isMetaClass ? jGetMetaClassMethod: jGetClassMethod, jClassName);
 	}
 }
 
-SEL JStringToSEL(JNIEnv* env, jstring selJStr) {
-    const char* selUTF = (*env)->GetStringUTFChars(env, selJStr, JNI_FALSE);
-	SEL sel = sel_getUid(selUTF);
-    (*env)->ReleaseStringUTFChars(env, selJStr, selUTF);
+SEL CSBJStringToSEL(JNIEnv* env, jstring jSelName) {
+    const char* uSelName = JNFGetStringUTF8Chars(env, jSelName);
+	SEL sel = sel_getUid(uSelName);
+    JNFReleaseStringUTF8Chars(env, jSelName, uSelName);
 	return sel;
 }
 
-jobject GetOCType(JNIEnv* env, const char* descr) {
-	jclass class = (*env)->FindClass(env, "cocoa/OCType$");
-	jfieldID moduleField = (*env)->GetStaticFieldID(env, class, "MODULE$", "Lcocoa/OCType$;");
-	jobject ocTypeJObj = (*env)->GetStaticObjectField(env, class, moduleField);
-	jmethodID applyMethod = (*env)->GetMethodID(env, class, "apply", "(Ljava/lang/String;)Lcocoa/OCType;");
-	jstring descrJStr = (*env)->NewStringUTF(env, descr);
-	return (*env)->CallObjectMethod(env, ocTypeJObj, applyMethod, descrJStr);
+jobject CSBGetOCType(JNIEnv* env, const char* uDescr) {
+	CSB_STATIC JNF_CLASS_CACHE(jOCTypeClass, "cocoa/OCType$");
+	CSB_STATIC JNF_STATIC_MEMBER_CACHE(jModuleField, jOCTypeClass, "MODULE$", "Lcocoa/OCType$;");
+	CSB_STATIC JNF_MEMBER_CACHE(jApplyMethod, jOCTypeClass, "apply", "(Ljava/lang/String;)Lcocoa/OCType;");
+	CSB_STATIC jobject jOCType = NULL;
+	if (!jOCType) jOCType = JNFGetStaticObjectField(env, jModuleField);
+	jstring jDescr = (*env)->NewStringUTF(env, uDescr);
+	return JNFCallObjectMethod(env, jOCType, jApplyMethod, jDescr);
 }
 
-jobject BoxObjectArray(JNIEnv* env, jobjectArray array) {
+jobject CSBBoxObjectArray(JNIEnv* env, jobjectArray array) {
 	jclass class = (*env)->FindClass(env, "scala/runtime/BoxedObjectArray");
 	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "([Ljava/lang/Object;)V");
 	return (*env)->NewObject(env, class, cons, array);
 }
 
-jobject BoxInt(JNIEnv* env, jint p) {
+jobject CSBBoxInt(JNIEnv* env, jint p) {
 	jclass class = (*env)->FindClass(env, "java/lang/Integer");
 	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(I)V");
 	return (*env)->NewObject(env, class, cons, p);
 }
 
-jobject BoxLong(JNIEnv* env, jlong p) {
+jobject CSBBoxLong(JNIEnv* env, jlong p) {
 	jclass class = (*env)->FindClass(env, "java/lang/Long");
 	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(J)V");
 	return (*env)->NewObject(env, class, cons, p);
 }
 
-jobject BoxFloat(JNIEnv* env, jfloat p) {
+jobject CSBBoxFloat(JNIEnv* env, jfloat p) {
 	jclass class = (*env)->FindClass(env, "java/lang/Float");
 	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(F)V");
 	return (*env)->NewObject(env, class, cons, p);
 }
 
-jobject BoxDouble(JNIEnv* env, jdouble p) {
+jobject CSBBoxDouble(JNIEnv* env, jdouble p) {
 	jclass class = (*env)->FindClass(env, "java/lang/Double");
 	jmethodID cons = (*env)->GetMethodID(env, class, "<init>", "(D)V");
 	return (*env)->NewObject(env, class, cons, p);

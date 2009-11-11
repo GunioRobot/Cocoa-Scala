@@ -8,19 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 #import <JavaVM/jni.h>
-#import <JavaNativeFoundation/JNFJNI.h>
-#import <JavaNativeFoundation/JNFString.h>
 #import <objc/runtime.h>
 
-jobject NewProxy(JNIEnv* env, id self);
-void* UnwrapProxy(JNIEnv* env, jobject this);
-jobject GetClassProxy(JNIEnv* env, Class class);
+#define CSB_STATIC /*static*/
 
-SEL JStringToSEL(JNIEnv* env, jstring jstr);
-jobject GetOCType(JNIEnv* env, const char* descr);
+jobject CSBNewProxy(JNIEnv* env, id self);
+void* CSBUnwrapProxy(JNIEnv* env, jobject this);
+jobject CSBGetClassProxy(JNIEnv* env, Class class);
 
-jobject BoxObjectArray(JNIEnv* env, jobjectArray array);
-jobject BoxInt(JNIEnv* env, jint p);
-jobject BoxLong(JNIEnv* env, jlong p);
-jobject BoxFloat(JNIEnv* env, jfloat p);
-jobject BoxDouble(JNIEnv* env, jdouble p);
+SEL CSBJStringToSEL(JNIEnv* env, jstring jstr);
+jobject CSBGetOCType(JNIEnv* env, const char* descr);
+
+jobject CSBBoxObjectArray(JNIEnv* env, jobjectArray array);
+jobject CSBBoxInt(JNIEnv* env, jint p);
+jobject CSBBoxLong(JNIEnv* env, jlong p);
+jobject CSBBoxFloat(JNIEnv* env, jfloat p);
+jobject CSBBoxDouble(JNIEnv* env, jdouble p);

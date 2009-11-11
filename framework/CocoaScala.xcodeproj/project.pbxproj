@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3F39CE9F0FE99AD200F097E7 /* CocoaScala.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F39CE9C0FE99AD200F097E7 /* CocoaScala.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3F39CEA00FE99AD200F097E7 /* CSRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F39CE9D0FE99AD200F097E7 /* CSRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3F39CEA10FE99AD200F097E7 /* CSRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39CE9E0FE99AD200F097E7 /* CSRuntime.m */; };
+		3F39CEA00FE99AD200F097E7 /* CSBRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F39CE9D0FE99AD200F097E7 /* CSBRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F39CEA10FE99AD200F097E7 /* CSBRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F39CE9E0FE99AD200F097E7 /* CSBRuntime.m */; };
 		3F39CEA30FE99AED00F097E7 /* JavaVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39CEA20FE99AED00F097E7 /* JavaVM.framework */; };
 		3F39CEC40FE99EF700F097E7 /* cocoascala-0.1.jar in Copy Java Resources */ = {isa = PBXBuildFile; fileRef = 3F39CEC10FE99EE400F097E7 /* cocoascala-0.1.jar */; };
 		3F39CECA0FE99F4000F097E7 /* scala-library.jar in Copy Java Resources */ = {isa = PBXBuildFile; fileRef = 3F39CEC80FE99F3E00F097E7 /* scala-library.jar */; };
 		3F5EAC300FFF9804002ADBAC /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F5EAC2F0FFF9804002ADBAC /* libffi.dylib */; };
+		3F617C1C10A45F9300EDE9E2 /* JavaNativeFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD0D63010A2484500B4C462 /* JavaNativeFoundation.framework */; };
+		3F617C1D10A45F9600EDE9E2 /* JavaNativeFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD0D63010A2484500B4C462 /* JavaNativeFoundation.framework */; };
 		3F68AAF20FEBE64500D9AF2B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		3F68AAF30FEBE64500D9AF2B /* JavaVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F39CEA20FE99AED00F097E7 /* JavaVM.framework */; };
 		3F68AAF80FEBE72C00D9AF2B /* libCocoaScala.jnilib in Copy Java Resources */ = {isa = PBXBuildFile; fileRef = 3F68AABF0FEBE58B00D9AF2B /* libCocoaScala.jnilib */; };
@@ -34,8 +36,6 @@
 		3FC1AB660FF3FCAF00DB42B4 /* ScalaBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F68AB330FEC291800D9AF2B /* ScalaBridge.m */; };
 		3FC1AC6E0FF5097900DB42B4 /* cocoa___ID.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */; };
 		3FC1ADB50FFCEB8B00DB42B4 /* cocoa_Method.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1ADB30FFCEB8B00DB42B4 /* cocoa_Method.m */; };
-		3FD0D63110A2484500B4C462 /* JavaNativeFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD0D63010A2484500B4C462 /* JavaNativeFoundation.framework */; };
-		3FD0D63210A2484500B4C462 /* JavaNativeFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD0D63010A2484500B4C462 /* JavaNativeFoundation.framework */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -107,8 +107,8 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* CocoaScala_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaScala_Prefix.pch; sourceTree = "<group>"; };
 		3F39CE9C0FE99AD200F097E7 /* CocoaScala.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CocoaScala.h; path = src/CocoaScala.h; sourceTree = "<group>"; };
-		3F39CE9D0FE99AD200F097E7 /* CSRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSRuntime.h; path = src/CSRuntime.h; sourceTree = "<group>"; };
-		3F39CE9E0FE99AD200F097E7 /* CSRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSRuntime.m; path = src/CSRuntime.m; sourceTree = "<group>"; };
+		3F39CE9D0FE99AD200F097E7 /* CSBRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSBRuntime.h; path = src/CSBRuntime.h; sourceTree = "<group>"; };
+		3F39CE9E0FE99AD200F097E7 /* CSBRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSBRuntime.m; path = src/CSBRuntime.m; sourceTree = "<group>"; };
 		3F39CEA20FE99AED00F097E7 /* JavaVM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaVM.framework; path = /System/Library/Frameworks/JavaVM.framework; sourceTree = "<absolute>"; };
 		3F39CEC10FE99EE400F097E7 /* cocoascala-0.1.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "cocoascala-0.1.jar"; path = "../target/cocoascala-0.1.jar"; sourceTree = SOURCE_ROOT; };
 		3F39CEC80FE99F3E00F097E7 /* scala-library.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "scala-library.jar"; path = "../project/boot/scala-2.7.7/lib/scala-library.jar"; sourceTree = SOURCE_ROOT; };
@@ -118,7 +118,7 @@
 		3F68AB330FEC291800D9AF2B /* ScalaBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScalaBridge.m; path = src/ScalaBridge.m; sourceTree = "<group>"; };
 		3F68AB5E0FEE600000D9AF2B /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F68AB600FEE600100D9AF2B /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		3F68AB710FEE959300D9AF2B /* scalatest-0.9.5.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "scalatest-0.9.5.jar"; path = "../lib_managed/default/scalatest-0.9.5.jar"; sourceTree = SOURCE_ROOT; };
+		3F68AB710FEE959300D9AF2B /* scalatest-0.9.5.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "scalatest-0.9.5.jar"; path = "../lib_managed/compile/scalatest-0.9.5.jar"; sourceTree = SOURCE_ROOT; };
 		3F68AB7B0FEE96D400D9AF2B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "test-src/main.m"; sourceTree = "<group>"; };
 		3F68AB810FEE98E400D9AF2B /* cocoascala-0.1-test.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "cocoascala-0.1-test.jar"; path = "../target/cocoascala-0.1-test.jar"; sourceTree = SOURCE_ROOT; };
 		3F68ABB10FEEEDBC00D9AF2B /* CocoaScalaTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaScalaTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,10 +144,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F617C1D10A45F9600EDE9E2 /* JavaNativeFoundation.framework in Frameworks */,
 				3F68AAF20FEBE64500D9AF2B /* Cocoa.framework in Frameworks */,
 				3F68AAF30FEBE64500D9AF2B /* JavaVM.framework in Frameworks */,
 				3F5EAC300FFF9804002ADBAC /* libffi.dylib in Frameworks */,
-				3FD0D63110A2484500B4C462 /* JavaNativeFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,9 +172,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F617C1C10A45F9300EDE9E2 /* JavaNativeFoundation.framework in Frameworks */,
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				3F39CEA30FE99AED00F097E7 /* JavaVM.framework in Frameworks */,
-				3FD0D63210A2484500B4C462 /* JavaNativeFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,8 +235,8 @@
 				3F68AB320FEC291800D9AF2B /* ScalaBridge.h */,
 				3F68AB330FEC291800D9AF2B /* ScalaBridge.m */,
 				3F39CE9C0FE99AD200F097E7 /* CocoaScala.h */,
-				3F39CE9D0FE99AD200F097E7 /* CSRuntime.h */,
-				3F39CE9E0FE99AD200F097E7 /* CSRuntime.m */,
+				3F39CE9D0FE99AD200F097E7 /* CSBRuntime.h */,
+				3F39CE9E0FE99AD200F097E7 /* CSBRuntime.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -286,11 +286,11 @@
 				3FC1ADB20FFCEB8B00DB42B4 /* cocoa_Method.h */,
 				3FC1ADB30FFCEB8B00DB42B4 /* cocoa_Method.m */,
 				3FC1AC6D0FF5097900DB42B4 /* cocoa___ID.m */,
+				3F68ACA00FF2B5EC00D9AF2B /* cocoa_Bridge__.h */,
 				3F68ACA50FF2B9D500D9AF2B /* cocoa_Bridge__.m */,
 				3F68AC9D0FF2B5EC00D9AF2B /* cocoa_OCClass.h */,
 				3F68AC9E0FF2B5EC00D9AF2B /* cocoa_OCClass.m */,
 				3F68AC9F0FF2B5EC00D9AF2B /* cocoa___ID.h */,
-				3F68ACA00FF2B5EC00D9AF2B /* cocoa_Bridge__.h */,
 			);
 			name = "JNI Source";
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 			files = (
 				3F68AB340FEC291800D9AF2B /* ScalaBridge.h in Headers */,
 				3F39CE9F0FE99AD200F097E7 /* CocoaScala.h in Headers */,
-				3F39CEA00FE99AD200F097E7 /* CSRuntime.h in Headers */,
+				3F39CEA00FE99AD200F097E7 /* CSBRuntime.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,7 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F39CEA10FE99AD200F097E7 /* CSRuntime.m in Sources */,
+				3F39CEA10FE99AD200F097E7 /* CSBRuntime.m in Sources */,
 				3F68AB350FEC291800D9AF2B /* ScalaBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

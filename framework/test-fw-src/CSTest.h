@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CocoaScala/CSRuntime.h>
+#import <CocoaScala/CSBRuntime.h>
 
 int CSTestMain(const char* mainClassName);
 

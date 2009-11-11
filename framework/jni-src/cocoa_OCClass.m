@@ -1,28 +1,31 @@
-#include "cocoa_OCClass.h"
-#include "ScalaBridge.h"
-#include <ffi/ffi.h>
+#import "cocoa_OCClass.h"
+#import "ScalaBridge.h"
+#import <JavaNativeFoundation/JavaNativeFoundation.h>
+#import <ffi/ffi.h>
 
 /*
  * Class:     cocoa_OCClass
  * Method:    attach
  * Signature: (Ljava/lang/String;Z)V
  */
-JNIEXPORT void JNICALL Java_cocoa_OCClass_attach(JNIEnv* env, jobject this, jstring classNameJStr, jboolean meta) {
-	const char* classNameUTF = (*env)->GetStringUTFChars(env, classNameJStr, JNI_FALSE);
-    id objcClass = meta ? objc_getMetaClass(classNameUTF) : objc_getClass(classNameUTF);
-    (*env)->ReleaseStringUTFChars(env, classNameJStr, classNameUTF);
-	if (objcClass == nil) {
-		jclass exClass = (*env)->FindClass(env, "cocoa/OCClassNotFoundException");
-		jmethodID constructorID = (*env)->GetMethodID(env, exClass, "<init>", "(Ljava/lang/String;)V");
-		jthrowable ex = (*env)->NewObject(env, exClass, constructorID, classNameJStr);
-		(*env)->Throw(env, ex);
+JNIEXPORT void JNICALL Java_cocoa_OCClass_attach(JNIEnv* env, jobject this, jstring jClassName, jboolean meta) {
+	JNF_COCOA_ENTER(env);
+	const char* uClassName = JNFGetStringUTF8Chars(env, jClassName);
+    id oClass = meta ? objc_getMetaClass(uClassName) : objc_getClass(uClassName);
+    JNFReleaseStringUTF8Chars(env, jClassName, uClassName);
+	if (oClass == nil) {
+		CSB_STATIC JNF_CLASS_CACHE(jExClass, "cocoa/OCClassNotFoundException");
+		CSB_STATIC JNF_CTOR_CACHE(jCons, jExClass, "(Ljava/lang/String;)V");
+		jthrowable jEx = JNFNewObject(env, jCons, jClassName);
+		(*env)->Throw(env, jEx);
 	}
 	else {
-		jclass nativeProxyClass = (*env)->FindClass(env, "cocoa/NativeProxy");
-		jfieldID nptrField = (*env)->GetFieldID(env, nativeProxyClass, "nptr", "J");
-		(*env)->SetLongField(env, this, nptrField, ptr_to_jlong(objcClass));
-		CFRetain(objcClass); // necessary? probably not
+		CSB_STATIC JNF_CLASS_CACHE(jNativeProxyClass, "cocoa/NativeProxy");
+		CSB_STATIC JNF_MEMBER_CACHE(jNptrField, jNativeProxyClass, "nptr", "J");
+		JNFSetLongField(env, this, jNptrField, ptr_to_jlong(oClass));
+		CFRetain(oClass); // necessary? probably not
 	}	
+	JNF_COCOA_EXIT(env);
 }
 
 /*
@@ -30,23 +33,30 @@ JNIEXPORT void JNICALL Java_cocoa_OCClass_attach(JNIEnv* env, jobject this, jstr
  * Method:    respondsToSelector
  * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_respondsToSelector(JNIEnv* env, jobject this, jstring sel_jstr) {
-	id self = (id) UnwrapProxy(env, this);
-    const char* selUTF8  = (*env)->GetStringUTFChars(env, sel_jstr, JNI_FALSE);
-	jboolean res = [self respondsToSelector:sel_getUid(selUTF8)];
-    (*env)->ReleaseStringUTFChars(env, sel_jstr, selUTF8);
+JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_respondsToSelector(JNIEnv* env, jobject this, jstring jSelName) {
+	jboolean res = false;
+	JNF_COCOA_ENTER(env);
+	id self = (id) CSBUnwrapProxy(env, this);
+	SEL sel = CSBJStringToSEL(env, jSelName);
+	res = [self respondsToSelector:sel];
+	JNF_COCOA_EXIT(env);
 	return res;
 }
 
 /*
  * Class:     cocoa___Class
- * Method:    superClass
+ * Method:    findSuperClass
  * Signature: ()Lcocoa/OCClass;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_OCClass_superClass(JNIEnv* env, jobject this) {
-	Class class = (Class) UnwrapProxy(env, this);
-	Class superClass = class_getSuperclass(class);
-	return GetClassProxy(env, superClass);
+JNIEXPORT jobject JNICALL Java_cocoa_OCClass_findSuperClass(JNIEnv* env, jobject this) {
+	jobject res = nil;
+	JNF_COCOA_ENTER(env);
+	Class oClass = (Class) CSBUnwrapProxy(env, this);
+	Class oSuperClass = class_getSuperclass(oClass);
+	NSLog(@"findSuperClass %s/%d => %s/%d", class_getName(oClass), class_isMetaClass(oClass), class_getName(oSuperClass), class_isMetaClass(oSuperClass));
+	res = CSBGetClassProxy(env, oSuperClass);
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 
 /*
@@ -55,8 +65,12 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_superClass(JNIEnv* env, jobject thi
  * Signature: ()Z
  */
 JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_isMetaClass(JNIEnv* env, jobject this) {
-	Class class = (Class) UnwrapProxy(env, this);
-	return class_isMetaClass(class);
+	jboolean res = false;
+	JNF_COCOA_ENTER(env);
+	Class oClass = (Class) CSBUnwrapProxy(env, this);
+	res = class_isMetaClass(oClass);
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 
 /*
@@ -65,9 +79,13 @@ JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_isMetaClass(JNIEnv* env, jobject t
  * Signature: ()Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_cocoa_OCClass_className(JNIEnv* env, jobject this) {
-	Class class = (Class) UnwrapProxy(env, this);
-	const char* classNameUTF = class_getName(class);
-	return (*env)->NewStringUTF(env, classNameUTF);
+	jstring res = nil;
+	JNF_COCOA_ENTER(env);
+	Class oClass = (Class) CSBUnwrapProxy(env, this);
+	const char* uClassName = class_getName(oClass);
+	res = (*env)->NewStringUTF(env, uClassName);
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 
 /*
@@ -76,7 +94,7 @@ JNIEXPORT jstring JNICALL Java_cocoa_OCClass_className(JNIEnv* env, jobject this
  * Signature: ()Lcocoa/$ID;
  */
 JNIEXPORT jobject JNICALL Java_cocoa_OCClass_alloc(JNIEnv* env, jobject this) {
-//	Class class = (Class) UnwrapProxy(env, this);
+//	Class class = (Class) CSBUnwrapProxy(env, this);
 	return nil;
 }
 
@@ -102,12 +120,15 @@ ffi_type* OCTypeCodeToFFIType(jchar octypeCode) {
  * Method:    cocoa_00024OCClass_00024_00024findMethod
  * Signature: (Lcocoa/Selector;)Lcocoa/Method;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findMethod(JNIEnv* env, jobject this, jobject selJObj) {
-	Class class = (Class) UnwrapProxy(env, this);
-	SEL sel = (SEL) UnwrapProxy(env, selJObj);
-	Method method = class_getInstanceMethod(class, sel);
-	jobject returnTypeJObj;
-	jobjectArray argTypesJArr;
+JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findMethod(JNIEnv* env, jobject this, jobject jSel) {
+	jobject res = nil;
+	JNF_COCOA_ENTER(env);
+	Class oClass = (Class) CSBUnwrapProxy(env, this);
+	SEL sel = (SEL) CSBUnwrapProxy(env, jSel);
+	NSLog(@"findMethod %s %s", class_getName(oClass), sel);
+	Method oMethod = class_getInstanceMethod(oClass, sel);
+	jobject jReturnType;
+	jobjectArray jArgTypes;
 	int argCount = 0; // does not include self and sel
 	jclass ocTypeClass = (*env)->FindClass(env, "cocoa/OCType");
 	jmethodID codeMeth = (*env)->GetMethodID(env, ocTypeClass, "code", "()C");
@@ -116,24 +137,24 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 	
 	NSLog(@"sel=%s", sel);
 	
-	if (method) {
-		NSLog(@"typeEncoding=%s", method_getTypeEncoding(method));
-		argCount = method_getNumberOfArguments(method) - 2;
-		char* typeName = method_copyReturnType(method);
-		returnTypeJObj = GetOCType(env, typeName);
-		NSLog(@"typeName=%s, typeObj=%p", typeName, returnTypeJObj);
+	if (oMethod) {
+		NSLog(@"typeEncoding=%s", method_getTypeEncoding(oMethod));
+		argCount = method_getNumberOfArguments(oMethod) - 2;
+		char* typeName = method_copyReturnType(oMethod);
+		jReturnType = CSBGetOCType(env, typeName);
+		NSLog(@"typeName=%s, typeObj=%p", typeName, jReturnType);
 		free(typeName);
-		argTypesJArr = (*env)->NewObjectArray(env, argCount, ocTypeClass, nil);
+		jArgTypes = (*env)->NewObjectArray(env, argCount, ocTypeClass, nil);
 		
 		for (int i = 0; i < argCount; i++) {
-			typeName = method_copyArgumentType(method, i + 2);
-			jobject argTypeJObj = GetOCType(env, typeName);
+			typeName = method_copyArgumentType(oMethod, i + 2);
+			jobject argTypeJObj = CSBGetOCType(env, typeName);
 			free(typeName);
 			if ((*env)->ExceptionOccurred(env)) return nil;
-			(*env)->SetObjectArrayElement(env, argTypesJArr, i, argTypeJObj);
+			(*env)->SetObjectArrayElement(env, jArgTypes, i, argTypeJObj);
 		}
 		
-		imp = method_getImplementation(method);
+		imp = method_getImplementation(oMethod);
 	}
 	else {
 		// try using [self methodSignatureForSelector: sel] instead
@@ -142,14 +163,14 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 	
 	if (argCount > 0) {
 		cif = (ffi_cif*)malloc(sizeof(ffi_cif));
-		ffi_type* ffiReturnType = OCTypeCodeToFFIType((*env)->CallCharMethod(env, returnTypeJObj, codeMeth));
+		ffi_type* ffiReturnType = OCTypeCodeToFFIType((*env)->CallCharMethod(env, jReturnType, codeMeth));
 		ffi_type* ffiArgTypes[argCount + 2];
 		
 		ffiArgTypes[0] = &ffi_type_pointer;
 		ffiArgTypes[1] = &ffi_type_pointer;
 		
 		for (int i = 0; i < argCount; i++) {
-			jobject argTypeJObj = (*env)->GetObjectArrayElement(env, argTypesJArr, i);
+			jobject argTypeJObj = (*env)->GetObjectArrayElement(env, jArgTypes, i);
 			jchar octypeCode = (*env)->CallCharMethod(env, argTypeJObj, codeMeth);
 			ffiArgTypes[i + 2] = OCTypeCodeToFFIType(octypeCode);
 		}
@@ -162,12 +183,12 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 		}
 	}
 	
-	jobject boxedArgTypesJObj = BoxObjectArray(env, argTypesJArr);
-	jclass methodClass = (*env)->FindClass(env, "cocoa/Method");
-	jmethodID methodCons = (*env)->GetMethodID(env, methodClass, "<init>", 
-											 "(Lcocoa/Selector;Lcocoa/OCType;Lscala/Seq;JJ)V");
-	jobject methodJObj = (*env)->NewObject(env, methodClass, methodCons, selJObj, returnTypeJObj, boxedArgTypesJObj, 
-										   ptr_to_jlong(cif), ptr_to_jlong(imp));
+	jobject boxedArgTypesJObj = CSBBoxObjectArray(env, jArgTypes);
+	CSB_STATIC JNF_CLASS_CACHE(jMethodClz, "cocoa/Method");
+	CSB_STATIC JNF_CTOR_CACHE(jMethodCtor, jMethodClz, "(Lcocoa/Selector;Lcocoa/OCType;Lscala/Seq;JJ)V");
+	res = JNFNewObject(env, jMethodCtor, jSel, jReturnType, boxedArgTypesJObj, 
+						   ptr_to_jlong(cif), ptr_to_jlong(imp));
 
-	return methodJObj;
+	JNF_COCOA_EXIT(env);
+	return res;
 }

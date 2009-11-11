@@ -6,13 +6,21 @@ import scala.collection.mutable.HashMap
  * Instances of this class are used to proxy Objective-C classes.
  */
 class OCClass(val className: String, val isMetaClass: Boolean) extends $ID {
+//    new Exception(getClass.getName + "/" + className + (if (isMetaClass) "[meta]" else "")).printStackTrace
+    
     private val methods = Cache.strict((name:String) => findMethod(Selector(name)))
+    
+    /** gets the proxy for the superclass */
+    lazy val superClass: OCClass = findSuperClass
     
     Bridge.touch() // be sure the jnilib is loaded
     attach(className, isMetaClass)
     Bridge.registerClass(this)
     
     def this(className: String) = this(className, false)
+    
+    /** returns the name of the Objective-C class */
+    override def toString = className + (if (isMetaClass) "[meta]" else "")
     
     /** connects to the underlying objective-c class */
     @native private def attach(className: String, isMetaClass: Boolean)
@@ -38,7 +46,7 @@ class OCClass(val className: String, val isMetaClass: Boolean) extends $ID {
     }
 
     /** gets the proxy for the superclass */
-    @native def superClass: OCClass
+    @native private def findSuperClass: OCClass
     
     /** calls the respondsToSelector method on the objective-c class */
     @native def respondsToSelector(sel: String): Boolean
@@ -48,9 +56,6 @@ class OCClass(val className: String, val isMetaClass: Boolean) extends $ID {
     
     /** searches the underlying objective-class for a method for the given selector */
     @native private def findMethod(sel: Selector): Method
-    
-    /** returns the name of the Objective-C class */
-    override def toString = className
     
     /* allocates an instance of this class */
     @native def alloc: $ID

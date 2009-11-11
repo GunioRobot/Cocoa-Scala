@@ -11,6 +11,6 @@
 #define _COCOA_SCALA_H_
 
 #include <Carbon/Carbon.h>
-#include "CSRuntime.h"
+#include "CSBRuntime.h"
 
 #endif

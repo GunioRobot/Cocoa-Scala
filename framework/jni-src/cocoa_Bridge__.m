@@ -1,14 +1,19 @@
 #include "cocoa_Bridge__.h"
 #include "ScalaBridge.h"
+#import <JavaNativeFoundation/JavaNativeFoundation.h> 
 
 /*
  * Class:     cocoa_Bridge__
  * Method:    stringToNSString
  * Signature: (Ljava/lang/String;)Lcocoa/NSString;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_stringToNSString(JNIEnv* env, jobject bridge, jstring string) {
-	id nsstring = JNFJavaToNSString(env, string);
-	return NewProxy(env, nsstring);
+JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_stringToNSString(JNIEnv* env, jobject bridge, jstring jString) {
+	jobject res = nil;
+	JNF_COCOA_ENTER(env);
+	id nsString = JNFJavaToNSString(env, jString);
+	res = CSBNewProxy(env, nsString);
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 
 /*
@@ -17,7 +22,12 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_stringToNSString(JNIEnv* env, 
  * Signature: (Lcocoa/NSString;)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_cocoa_Bridge_00024_nsStringToString(JNIEnv* env, jobject bridge, jobject proxy) {
-	return JNFNSToJavaString(env, (id)UnwrapProxy(env, proxy));
+	jstring res = nil;
+	JNF_COCOA_ENTER(env);
+	id nsstring = CSBUnwrapProxy(env, proxy);
+	res = JNFNSToJavaString(env, nsstring);
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 
 /*
@@ -30,7 +40,11 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_getClass(JNIEnv* env, jobject 
 		return nil;
 	}
 	else {
-		return GetClassProxy(env, ((id)UnwrapProxy(env, proxy))->isa);
+		jobject res = nil;
+		JNF_COCOA_ENTER(env);
+		res = CSBGetClassProxy(env, ((id)CSBUnwrapProxy(env, proxy))->isa);
+		JNF_COCOA_EXIT(env);
+		return res;
 	}
 }
 
@@ -39,39 +53,39 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_getClass(JNIEnv* env, jobject 
  * Method:    cocoa_00024Bridge_00024_00024findClass
  * Signature: (Ljava/lang/String;)Lcocoa/OCClass;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024findClass(JNIEnv* env, jobject bridge, jstring classNameJStr) {
-	jclass bridgeClass = (*env)->GetObjectClass(env, bridge);
-	jmethodID hasMethod = (*env)->GetMethodID(env, bridgeClass, "hasClass", "(Ljava/lang/String;)Z");
-	const char* classNameUTF = (*env)->GetStringUTFChars(env, classNameJStr, JNI_FALSE);
-	Class occlass = objc_getClass(classNameUTF);
+JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024findClass(JNIEnv* env, jobject bridge, jstring jClassName) {
+	jobject res = nil;
+	JNF_COCOA_ENTER(env);
+	CSB_STATIC JNF_CLASS_CACHE(jBridgeClass, "cocoa/Bridge$");
+	CSB_STATIC JNF_MEMBER_CACHE(hasClassMtd, jBridgeClass, "hasClass", "(Ljava/lang/String;)Z");
+	CSB_STATIC JNF_MEMBER_CACHE(getClassMtd, jBridgeClass, "getClass", "(Ljava/lang/String;)Lcocoa/OCClass;");
+	const char* uClassName = JNFGetStringUTF8Chars(env, jClassName);
+	Class oClass = objc_getClass(uClassName);
 	jclass resClass = nil;
 	
-	NSLog(@"findClass %s => %@", classNameUTF, occlass);
+	JNFReleaseStringUTF8Chars(env, jClassName, uClassName);
 	
-	(*env)->ReleaseStringUTFChars(env, classNameJStr, classNameUTF);
-	
-	if (occlass == nil) {
-		jclass exClass = (*env)->FindClass(env, "cocoa/OCClassNotFoundException");
-		jmethodID constructorID = (*env)->GetMethodID(env, exClass, "<init>", "(Ljava/lang/String;)V");
-		jthrowable ex = (*env)->NewObject(env, exClass, constructorID, classNameJStr);
+	if (oClass == nil) {
+		CSB_STATIC JNF_CLASS_CACHE(exClass, "cocoa/OCClassNotFoundException");
+		CSB_STATIC JNF_CTOR_CACHE(exCtor, exClass, "(Ljava/lang/String;)V");
+		jthrowable ex = JNFNewObject(env, exCtor, jClassName);
 		(*env)->Throw(env, ex);
 		return nil;
 	}
 	
 	while (true) {
-		jstring classNameJStr = (*env)->NewStringUTF(env, class_getName(occlass));
+		jstring jClassName = (*env)->NewStringUTF(env, class_getName(oClass));
 
-		if ((*env)->CallBooleanMethod(env, bridge, hasMethod, classNameJStr)) {
-			NSLog(@"hasClass %s", classNameUTF);
-			jmethodID getterMethod = (*env)->GetMethodID(env, bridgeClass, "getClass", "(Ljava/lang/String;)Lcocoa/OCClass;");
-			jobject ancestor = (*env)->CallObjectMethod(env, bridge, getterMethod, classNameJStr);
+		if (JNFCallBooleanMethod(env, bridge, hasClassMtd, jClassName)) {
+			NSLog(@"hasClass %s", uClassName);
+			jobject ancestor = JNFCallObjectMethod(env, bridge, getClassMtd, jClassName);
 			resClass = (*env)->GetObjectClass(env, ancestor);
 			break;
 		}
 		
-		if (!(occlass = class_getSuperclass(occlass))) {
+		if (!(oClass = class_getSuperclass(oClass))) {
 			// we normally would have found at least NSObject, but if we are looking
-			// at a non NSObject subclass, we have to default to using OCClass
+			// at a non NSObject subclass, we have to default to using oClass
 			NSLog(@"no more superclasses, using cocoa.OCClass");
 			resClass = (*env)->FindClass(env, "cocoa/OCClass");
 			break;
@@ -79,7 +93,9 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024f
 	}
 
 	jmethodID cons = (*env)->GetMethodID(env, resClass, "<init>", "(Ljava/lang/String;)V");
-	return (*env)->NewObject(env, resClass, cons, classNameJStr);
+	res = (*env)->NewObject(env, resClass, cons, jClassName);
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 
 /*
@@ -87,10 +103,14 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024f
  * Method:    cocoa_00024Bridge_00024_00024newSel
  * Signature: (Ljava/lang/String;)Lcocoa/Selector;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024newSel(JNIEnv* env, jobject this, jstring selJStr) {
-	SEL sel = JStringToSEL(env, selJStr);
-    jclass selClass = (*env)->FindClass(env, "cocoa/Selector");
-    jmethodID constructorID = (*env)->GetMethodID(env, selClass, "<init>", "(Ljava/lang/String;J)V");
-    return (*env)->NewObject(env, selClass, constructorID, selJStr, ptr_to_jlong(sel));
+JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024newSel(JNIEnv* env, jobject this, jstring jSelName) {
+	jobject res = nil;
+	JNF_COCOA_ENTER(env);
+	CSB_STATIC JNF_CLASS_CACHE(jSelectorClass, "cocoa/Selector");
+	CSB_STATIC JNF_CTOR_CACHE(jSelectorCtor, jSelectorClass, "(Ljava/lang/String;J)V");
+	SEL sel = CSBJStringToSEL(env, jSelName);
+    res = JNFNewObject(env, jSelectorCtor, jSelName, ptr_to_jlong(sel));
+	JNF_COCOA_EXIT(env);
+	return res;
 }
 

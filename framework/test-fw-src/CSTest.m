@@ -10,7 +10,7 @@
 
 int CSTestMain(const char* mainClass) {
 	NSString* mainClassName = [NSString stringWithUTF8String:mainClass];
-	[[CSRuntime sharedRuntime] invokeMainClass:mainClassName withArgs:[NSArray array]];
+	[[CSBRuntime sharedRuntime] invokeMainClass:mainClassName withArgs:[NSArray array]];
 	return 0;
 }
 

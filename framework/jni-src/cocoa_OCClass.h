@@ -33,10 +33,10 @@ JNIEXPORT jboolean JNICALL Java_cocoa_OCClass_respondsToSelector
 
 /*
  * Class:     cocoa_OCClass
- * Method:    superClass
+ * Method:    findSuperClass
  * Signature: ()Lcocoa/OCClass;
  */
-JNIEXPORT jobject JNICALL Java_cocoa_OCClass_superClass
+JNIEXPORT jobject JNICALL Java_cocoa_OCClass_findSuperClass
   (JNIEnv *, jobject);
 
 /*
