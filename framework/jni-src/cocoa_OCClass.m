@@ -24,7 +24,7 @@ JNIEXPORT void JNICALL Java_cocoa_OCClass_attach(JNIEnv* env, jobject this, jstr
 		CSB_STATIC JNF_MEMBER_CACHE(jNptrField, jNativeProxyClass, "nptr", "J");
 		JNFSetLongField(env, this, jNptrField, ptr_to_jlong(oClass));
 		CFRetain(oClass); // necessary? probably not
-	}	
+	}
 	JNF_COCOA_EXIT(env);
 }
 
@@ -134,9 +134,9 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 	jmethodID codeMeth = (*env)->GetMethodID(env, ocTypeClass, "code", "()C");
 	IMP imp;
 	ffi_cif* cif = nil;
-	
+
 //	NSLog(@"\tsel=%s", sel);
-	
+
 	if (oMethod) {
 //		NSLog(@"\ttypeEncoding=%s", method_getTypeEncoding(oMethod));
 		argCount = method_getNumberOfArguments(oMethod) - 2;
@@ -145,7 +145,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 //		NSLog(@"\ttypeName=%s, typeObj=%p", typeName, jReturnType);
 		free(typeName);
 		jArgTypes = (*env)->NewObjectArray(env, argCount, ocTypeClass, nil);
-		
+
 		for (int i = 0; i < argCount; i++) {
 			typeName = method_copyArgumentType(oMethod, i + 2);
 			jobject argTypeJObj = CSBGetOCType(env, typeName);
@@ -153,7 +153,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 			if ((*env)->ExceptionOccurred(env)) return nil;
 			(*env)->SetObjectArrayElement(env, jArgTypes, i, argTypeJObj);
 		}
-		
+
 		imp = method_getImplementation(oMethod);
 //		NSLog(@"\timp=%p", imp);
 	}
@@ -161,33 +161,33 @@ JNIEXPORT jobject JNICALL Java_cocoa_OCClass_cocoa_00024OCClass_00024_00024findM
 		// try using [self methodSignatureForSelector: sel] instead
 		return nil;
 	}
-	
+
 	if (argCount > 0) {
 		cif = (ffi_cif*)malloc(sizeof(ffi_cif));
 		ffi_type* ffiReturnType = OCTypeCodeToFFIType((*env)->CallCharMethod(env, jReturnType, codeMeth));
 		ffi_type** ffiArgTypes = (ffi_type**)malloc((argCount + 2) * sizeof(ffi_type*));
-		
+
 		ffiArgTypes[0] = &ffi_type_pointer;
 		ffiArgTypes[1] = &ffi_type_pointer;
-		
+
 		for (int i = 0; i < argCount; i++) {
 			jobject argTypeJObj = (*env)->GetObjectArrayElement(env, jArgTypes, i);
 			jchar octypeCode = (*env)->CallCharMethod(env, argTypeJObj, codeMeth);
 			ffiArgTypes[i + 2] = OCTypeCodeToFFIType(octypeCode);
 		}
-		
+
 		ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, argCount + 2, ffiReturnType, ffiArgTypes);
-		
+
 		if (status) {
 			NSLog(@"ffi_prep_cif returned %d", status);
 			return nil;
 		}
 	}
-	
+
 	jobject boxedArgTypesJObj = CSBBoxObjectArray(env, jArgTypes);
 	CSB_STATIC JNF_CLASS_CACHE(jMethodClz, "cocoa/Method");
 	CSB_STATIC JNF_CTOR_CACHE(jMethodCtor, jMethodClz, "(Lcocoa/Selector;Lcocoa/OCType;Lscala/Seq;JJ)V");
-	res = JNFNewObject(env, jMethodCtor, jSel, jReturnType, boxedArgTypesJObj, 
+	res = JNFNewObject(env, jMethodCtor, jSel, jReturnType, boxedArgTypesJObj,
 						   ptr_to_jlong(cif), ptr_to_jlong(imp));
 
 	JNF_COCOA_EXIT(env);

@@ -1,6 +1,6 @@
 #include "cocoa_Bridge__.h"
 #include "ScalaBridge.h"
-#import <JavaNativeFoundation/JavaNativeFoundation.h> 
+#import <JavaNativeFoundation/JavaNativeFoundation.h>
 
 /*
  * Class:     cocoa_Bridge__
@@ -62,9 +62,9 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024f
 	const char* uClassName = JNFGetStringUTF8Chars(env, jClassName);
 	Class oClass = objc_getClass(uClassName);
 	jclass resClass = nil;
-	
+
 	JNFReleaseStringUTF8Chars(env, jClassName, uClassName);
-	
+
 	if (oClass == nil) {
 		CSB_STATIC JNF_CLASS_CACHE(exClass, "cocoa/OCClassNotFoundException");
 		CSB_STATIC JNF_CTOR_CACHE(exCtor, exClass, "(Ljava/lang/String;)V");
@@ -72,7 +72,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024f
 		(*env)->Throw(env, ex);
 		return nil;
 	}
-	
+
 	while (true) {
 		jstring jClassName = (*env)->NewStringUTF(env, class_getName(oClass));
 
@@ -82,7 +82,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_Bridge_00024_cocoa_00024Bridge_00024_00024f
 			resClass = (*env)->GetObjectClass(env, ancestor);
 			break;
 		}
-		
+
 		if (!(oClass = class_getSuperclass(oClass))) {
 			// we normally would have found at least NSObject, but if we are looking
 			// at a non NSObject subclass, we have to default to using oClass

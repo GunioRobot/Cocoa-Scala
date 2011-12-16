@@ -4,7 +4,7 @@ import org.scalatest._
 
 class IDSuite extends FunSuite {
     val aString = Bridge.stringToNSString("hello world")
-    
+
     test("aString.isa should be NSCFString") {
         assert(aString.isa === OCClass("NSCFString"))
     }

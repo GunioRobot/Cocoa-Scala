@@ -9,13 +9,13 @@ if the current design direction is deemed insufficient.
 
 I am currently working towards the following first major milestone:
 
-* Be able to build a very simple Cocoa+Scala application, where the 
+* Be able to build a very simple Cocoa+Scala application, where the
 application source is written entirely in Scala, and which can get
 a handle on Objective-C classes and send messages to Objective-C
-objects.  
+objects.
 
 * This milestone does not include the ability to extend Cocoa classes in
-Scala (that will be milestone 2).  
+Scala (that will be milestone 2).
 
 * In this milestone, all interaction with Objective-C classes will be weakly
 typed.  In a future milestone, the ability to write strongly typed expressions
@@ -29,22 +29,21 @@ The Scala code in milestone 1 might look something like the following:
     // get jar files
     val imageResources = mainBundle!('pathsForResourcesOfType->"jar", 'inDirectory->"Java")
     ...
-    
+
 There are currently three parts to this project:
   * the scala code, which represents the scala half of the bridge
   * JNI code, which represents the objective-c side of the bridge
-  * a Cocoa framework, which encapsulates everything     
-    
-To build this project, you need simple-build-tool 
+  * a Cocoa framework, which encapsulates everything
+
+To build this project, you need simple-build-tool
 (http://code.google.com/p/simple-build-tool/).  To build the framework,
 issue "sbt framework" from the base project directory.  The 'framework'
 target builds cocoascala.jar, libCocoaScala.jnilib, and CocoaScala.framework
 (which contains the jar and the jnilib).
 
-CocoaScala.framework contains a method, CSApplicationMain, which should be 
-used in place of NSApplicationMain in your applications main function.  The 
-framework will startup a JavaVM and execute the main method on the class named 
+CocoaScala.framework contains a method, CSApplicationMain, which should be
+used in place of NSApplicationMain in your applications main function.  The
+framework will startup a JavaVM and execute the main method on the class named
 as the first argument to CSApplicationMain.
 
 
-    

@@ -19,7 +19,7 @@ object OCType {
     case object SelectorType extends OCType(':')
     case object CStringType extends OCType('*')
     case object PointerType extends OCType('^')
-    
+
     def apply(descr: String): OCType = descr match {
         case "v" => VoidType
         case "c" => CharType

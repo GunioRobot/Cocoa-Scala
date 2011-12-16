@@ -12,8 +12,8 @@
 int CSBApplicationMain(const char* mainClass, int argc, const char* argv[]);
 
 @interface CSBRuntime : NSObject {
-	@private 
-	JavaVM *jvm;       /* denotes a Java VM */ 
+	@private
+	JavaVM *jvm;       /* denotes a Java VM */
 }
 
 +(CSBRuntime*)sharedRuntime;

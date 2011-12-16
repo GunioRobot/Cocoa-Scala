@@ -11,26 +11,26 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
 	val targetPath = path("target")
     val targetFrameworkPath = targetPath / "CocoaScala.framework"
 	val targetJNILibPath = targetPath / "libCocoaScala.jnilib"
-    
+
     val nativeClasses = List(
         "cocoa.Bridge$",
         "cocoa.$ID",
 		"cocoa.OCClass",
 		"cocoa.Method",
 		"cocoa.foundation.NSObject_class")
-        
+
     override def cleanAction = super.cleanAction dependsOn cleanFramework
-        
+
     lazy val javah = task {
         ("javah -classpath target/classes -d " + headersPath + " " + nativeClasses.mkString(" ")) ! log
         None
     } dependsOn(compile)
-    
+
     lazy val framework = task {
         FileUtilities.clean(List(targetFrameworkPath), log)
         Process("xcodebuild -target CocoaScala", frameworkPath) ! log
-        copyDirectory(targetPath / "framework" / "Release" / "CocoaScala.framework", 
-            targetFrameworkPath, 
+        copyDirectory(targetPath / "framework" / "Release" / "CocoaScala.framework",
+            targetFrameworkPath,
             log)
         None
     } dependsOn(`package`)
@@ -38,8 +38,8 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
     lazy val jnilib = task {
         FileUtilities.clean(List(targetJNILibPath), log)
         Process("xcodebuild -target JNILib", frameworkPath) ! log
-        copyFile(targetPath / "framework" / "Release" / "libCocoaScala.jniLib", 
-            targetJNILibPath, 
+        copyFile(targetPath / "framework" / "Release" / "libCocoaScala.jniLib",
+            targetJNILibPath,
             log)
         None
     }
@@ -47,8 +47,8 @@ class CocoaScalaProject(info: ProjectInfo) extends DefaultProject(info) {
     lazy val jnilibDebug = task {
         FileUtilities.clean(List(targetJNILibPath), log)
         Process("xcodebuild -target JNILib -configuration Debug", frameworkPath) ! log
-        copyFile(targetPath / "framework" / "Debug" / "libCocoaScala.jniLib", 
-            targetJNILibPath, 
+        copyFile(targetPath / "framework" / "Debug" / "libCocoaScala.jniLib",
+            targetJNILibPath,
             log)
         None
     }

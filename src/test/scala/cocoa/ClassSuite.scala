@@ -8,7 +8,7 @@ class ClassSuite extends FunSuite {
     import OCType._
 
     Foundation.require
-    
+
     test("NSString className should be 'NSString'") {
         assert(NSString.className === "NSString")
     }
@@ -24,15 +24,15 @@ class ClassSuite extends FunSuite {
     test("NSString respondsToSelector length should return false") {
         assert(NSString.respondsToSelector("length") === false)
     }
-    
+
     test("NSString.isa.isMetaClass should be true") {
         assert(NSString.isa.isMetaClass === true)
     }
-    
+
     test("NSString.isa.isMetaClass should be equal to getMetaClass('NSString')") {
         assert(NSString.isa === Bridge.getMetaClass("NSString"))
     }
-    
+
     test("NSObject.init method should have IDType return type and no args") {
         val method = NSObject.methodForSelector("init").get
         Console.println("NSObject.init => " + method)
@@ -40,7 +40,7 @@ class ClassSuite extends FunSuite {
         assert(method.returnType === IDType)
         assert(method.paramTypes.length === 0)
     }
-    
+
     test("NSString.initWithString: method should have IDType return type and one arg") {
         val method = NSString.methodForSelector("initWithString:").get
         Console.println("NSString.initWithString: => " + method)
@@ -49,7 +49,7 @@ class ClassSuite extends FunSuite {
         assert(method.paramTypes.length === 1)
         assert(method.paramTypes(0) === IDType)
     }
-    
+
     test("NSString.initWithUTF8String: method should have IDType return type and one arg") {
         val method = NSString.methodForSelector("initWithUTF8String:").get
         Console.println("NSString.initWithUTF8String: => " + method)
@@ -58,7 +58,7 @@ class ClassSuite extends FunSuite {
         assert(method.paramTypes.length === 1)
         assert(method.paramTypes(0) === CStringType)
     }
-    
+
     test("NSString.initWithFormat: method should have IDType return type and one arg") {
         val method = NSString.methodForSelector("initWithFormat:").get
         Console.println("NSString.initWithFormat: => " + method)
@@ -67,8 +67,8 @@ class ClassSuite extends FunSuite {
         assert(method.paramTypes.length === 1)
         assert(method.paramTypes(0) === IDType)
     }
-    
-    
+
+
     test("NSString.length method should have ULongType return type and no args") {
         val method = NSString.methodForSelector("length").get
         Console.println("NSString.length => " + method)

@@ -9,9 +9,9 @@
  * Signature: (Lcocoa/Selector;Lcocoa/OCType;Lscala/Seq;JJLcocoa/$ID;[Ljava/lang/Object;)Ljava/lang/Object;
  */
 JNIEXPORT jobject JNICALL Java_cocoa_Method_sendMsg(
-	JNIEnv* env, jobject jMethod, jobject jSel, 
-	jchar returnType, jcharArray jParamTypesArray, 
-	jlong fficifPtr, jlong fnPtr, 
+	JNIEnv* env, jobject jMethod, jobject jSel,
+	jchar returnType, jcharArray jParamTypesArray,
+	jlong fficifPtr, jlong fnPtr,
 	jobject recvProxy, jobjectArray jArgArray)
 {
 	jobject res = nil;
@@ -21,7 +21,7 @@ JNIEXPORT jobject JNICALL Java_cocoa_Method_sendMsg(
 	int argCount = jArgArray ? (*env)->GetArrayLength(env, jArgArray) : 0;
 	IMP imp = (IMP) jlong_to_ptr(fnPtr);
 	ffi_arg rvalue = 0;
-	
+
 	if (argCount == 0) {
 		// with no arguments, just call method impl directly, bypassing ffi
 		rvalue = (*(ffi_arg(*)(id,SEL))imp)(recv, sel);
@@ -36,83 +36,83 @@ JNIEXPORT jobject JNICALL Java_cocoa_Method_sendMsg(
 
 		argPtrs[0] = &recv;
 		argPtrs[1] = &sel;
-		
+
 		for (int i = 0; i < argCount; i++) {
 			jobject jArg = (*env)->GetObjectArrayElement(env, jArgArray, i);
-			
+
 			switch (paramTypes[i]) {
 				case 'i': case 'l':
 					args[i] = CSBUnboxInt(env, jArg);
 					break;
-					
+
 				case 'I': case 'L':
 					args[i] = CSBUnboxLong(env, jArg);
 					break;
-					
-				case 'q': case 'Q': 
+
+				case 'q': case 'Q':
 					args[i] = (uint64_t) CSBUnboxLong(env, jArg);
 					break;
-					
+
 				case 'f': {
 					jfloat floatVal = CSBUnboxFloat(env, jArg);
 					args[i] = *(int*)&floatVal;
 					break;
 				}
-					
+
 				case 'd': {
 					jdouble doubleVal = CSBUnboxDouble(env, jArg);
 					args[i] = *(long*)&doubleVal;
 					break;
 				}
-					
+
 				case '@': case '#':
 					args[i] = ptr_to_jlong(CSBUnwrapProxy(env, jArg));
 					break;
-					
+
 				default:
 					NSLog(@"did not encode arg %d of type %c in call to %s", i, paramTypes[i], sel);
 					args[i] = 0;
 			}
 			argPtrs[i + 2] = &args[i];
 		}
-		
+
 		(*env)->ReleaseCharArrayElements(env, jParamTypesArray, paramTypes, 0);
 		ffi_call(cif, FFI_FN(imp), &rvalue, argPtrs);
 	}
-	
+
 	switch (returnType) {
-		case 'v': 
+		case 'v':
 			break;
-			
+
 		case 'c': case 'C': case 'i': case 'l':
 			NSLog(@"rvalue=%ld, as int32_t=%d", rvalue, (int32_t)rvalue);
 			res = CSBBoxInt(env, (int32_t)rvalue);
 			break;
-			
+
 		case 'I': case 'L':
 			res = CSBBoxLong(env, (uint32_t)rvalue);
 			break;
-			
-		case 'q': case 'Q': 
+
+		case 'q': case 'Q':
 			res = CSBBoxLong(env, (uint64_t)rvalue);
 			break;
-			
-		case 'f': 
+
+		case 'f':
 			res = CSBBoxFloat(env, *(float*)&rvalue);
 			break;
-			
-		case 'd': 
+
+		case 'd':
 			res = CSBBoxDouble(env, *(double*)&rvalue);
 			break;
-			
+
 		case '@':
 			res = CSBNewProxy(env, jlong_to_ptr(rvalue));
 			break;
-			
+
 		case '#':
 			res = CSBGetClassProxy(env, jlong_to_ptr(rvalue));
 			break;
-			
+
 		default:
 			NSLog(@"unconverted return type: %c", returnType);
 	}

@@ -5,9 +5,9 @@ trait Module {
         Bridge.touch()
         load()
     }
-    
+
     final def require = loaded
-    
+
     /** can be override by subclasses to perform any initialization required */
     protected def load() {}
 }

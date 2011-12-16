@@ -100,7 +100,7 @@ static CSBRuntime* theRuntime = nil;
 +(void)collectJarPathsForBundle:(NSBundle*)bundle into:(NSMutableArray*)classPathArray {
 	NSArray* jarPaths = [bundle pathsForResourcesOfType:@"jar" inDirectory:@"Java"];
 	[classPathArray addObjectsFromArray:jarPaths];
-	
+
 	for (NSBundle* framework in [self embeddedFrameworksIn:bundle]) {
 		[self collectJarPathsForBundle:framework into:classPathArray];
 	}
@@ -112,7 +112,7 @@ static CSBRuntime* theRuntime = nil;
 	NSString* resourcePath = [bundle resourcePath];
 	NSString* javaResourcePath = [resourcePath stringByAppendingString:@"/Java"];
 	[libraryPathArray addObject:javaResourcePath];
-	
+
 	for (NSBundle* framework in [self embeddedFrameworksIn:bundle]) {
 		[self collectLibraryPathsForBundle:framework into:libraryPathArray];
 	}
@@ -126,7 +126,7 @@ static CSBRuntime* theRuntime = nil;
 	NSString* frameworksPath = [bundle privateFrameworksPath];
 	NSFileWrapper* frameworksDir = [[NSFileWrapper alloc] initWithPath:frameworksPath];
 	NSDictionary* fileWrappers = [frameworksDir fileWrappers];
-	
+
 	for (id key in fileWrappers) {
 		NSFileWrapper* itemWrapper = [fileWrappers objectForKey:key];
 		NSString* filename = [itemWrapper filename];
@@ -136,7 +136,7 @@ static CSBRuntime* theRuntime = nil;
 			[embeddedFrameworks addObject:framework];
 		}
 	}
-	
+
 	return embeddedFrameworks;
 }
 
@@ -166,8 +166,8 @@ static CSBRuntime* theRuntime = nil;
 	[super init];
 	NSString* classPath = [CSBRuntime defaultClassPath];
 	NSString* libraryPath = [CSBRuntime defaultLibraryPath];
-	
-    JNIEnv *env;       /* pointer to native method interface */ 
+
+    JNIEnv *env;       /* pointer to native method interface */
     JavaVMInitArgs vm_args; /* JDK/JRE 6 VM initialization arguments */
     JavaVMOption options[2];
     options[0].optionString = (char*)[[@"-Djava.class.path=" stringByAppendingString:classPath] UTF8String];

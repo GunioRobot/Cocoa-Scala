@@ -8,9 +8,9 @@ import scala.collection.mutable.HashMap
  */
 private[cocoa] class Cache[K,V](gen: K=>Option[V]) {
     private val map = new HashMap[K,V]
-    
+
     override def toString = "Cache(" + map + ")"
-    
+
     def apply(key: K): Option[V] = {
         map.synchronized {
             map.get(key) orElse {
@@ -23,13 +23,13 @@ private[cocoa] class Cache[K,V](gen: K=>Option[V]) {
             }
         }
     }
-    
+
     def update(key: K, v: V) {
         map.synchronized {
             map(key) = v
         }
     }
-    
+
     def contains(key: K) = map.contains(key)
 }
 

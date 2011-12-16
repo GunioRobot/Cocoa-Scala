@@ -17,9 +17,9 @@ int CSTestMain(const char* mainClass) {
 
 @implementation CSTest
 
-+(NSObject*)meta { 
++(NSObject*)meta {
 	NSLog(@"self=%@", self);
-	return self; 
+	return self;
 }
 -(void)executeSuite:(NSString*)suiteName {
 

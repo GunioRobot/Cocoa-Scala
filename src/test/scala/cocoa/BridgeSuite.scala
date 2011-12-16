@@ -6,7 +6,7 @@ import org.scalatest._
 class BridgeSuite extends FunSuite {
     import Foundation._
     Foundation.require
-    
+
     test("Bridge.getClass(\"NSObject\") should return an OCClass") {
         assert(Bridge.getClass("NSObject").className === "NSObject")
     }
